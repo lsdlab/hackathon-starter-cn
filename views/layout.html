@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>
+            {% block title %}
+                Hackathon Starter
+            {% endblock %}
+        </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+        <link rel="apple-touch-icon" href="img/apple-touch-icon-precomposed.png">
+
+        {% block css %}
+            <link rel="stylesheet" href="css/bootstrap.min.css">
+            <link rel="stylesheet" href="css/flat-ui.min.css">
+            <link rel="stylesheet" href="css/font-awesome.min.css">
+            <link rel="stylesheet" href="css/normalize.css">
+            <link rel="stylesheet" href="css/style.css">
+        {% endblock %}
+
+        {% block style %}
+        {% endblock %}
+    </head>
+
+    <body>
+        {% block content %}
+        {% endblock %}
+
+        {% block js %}
+            <script src="js/jquery-2.2.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/flat-ui.min.js"></script>
+        {% endblock %}
+    </body>
+</html>
