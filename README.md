@@ -2,6 +2,11 @@
 
 copycat of [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter)，不过是翻版。他里面的第三方登录都是 Google, Twitter，我想给他换成微博微信，还有就是他用的是 Jade 模板，我想换成 React，什么 gulp, webpack 全管上。
 
+## Changelog：
+### 2016/05/09
+
+
+
 ## LICENSE
 
 The MIT License (MIT)

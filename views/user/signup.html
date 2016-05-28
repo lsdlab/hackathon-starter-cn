@@ -1,0 +1,34 @@
+{% extends '../layout.html' %}
+
+{% block title %}
+    注册
+{% endblock %}
+
+{% block content %}
+
+    {% include "../partials/navbar.html" %}
+
+    <div class="container">
+        {% include "../partials/flash.html" %}
+    </div>
+
+    <div class="container"  style="padding-top: 20px">
+        <form action="/signup" method="POST" class="form-signin">
+            <input type="hidden" name="_csrf" value="_csrf"/>
+            <h4 class="form-signin-heading">请注册</h4>
+            <label for="inputEmail" class="sr-only">邮箱（必须）</label>
+            <input type="email" id="email" name="email" placeholder="xxxxxx@gmail.com" required="true" autofocus="true" class="form-control"/>
+            <label for="inputPassword" class="sr-only">密码（必须）</label>
+            <input type="password" id="inputPassword" name="password" placeholder="E9oGGzQ7ghTwTX" required="true" style="border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; margin-top: -2px; margin-bottom: 0px" class="form-control"/>
+            <label for="inputconfirmPassword" class="sr-only">确认密码（必须）</label>
+            <input type="password" id="inputconfirmPassword" name="confirmPassword" placeholder="E9oGGzQ7ghTwTX" required="true" style="border-top-right-radius: 0px; border-top-left-radius: 0px; margin-top: -2px" class="form-control"/>
+            <label for="rememberPassword" style="display:none" class="checkbox">记住我
+              <input type="checkbox" id="rememberPassword" data-toggle="checkbox" class="custom-checkbox"/><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+            </label>
+            <button type="submit" class="btn btn-lg btn-primary btn-block"><span style="margin-right: 8px" class="fa fa-user-plus"></span>注册</button>
+        </form>
+    </div>
+
+    {% include "../partials/footer.html" %}
+
+{% endblock %}

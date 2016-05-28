@@ -1,17 +1,28 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('index', {
-        pagename: 'awesome people',
-        authors: ['Paul', 'Jim', 'Jane']
-    });
+/**
+ * GET /
+ * Index page.
+ */
+router.get('/', function(req, res) {
+    res.render('index', {title: 'index'});
+});
+
+router.get('/about', function(req, res) {
+    res.render('about', {title: 'about'});
 });
 
 /* GET 404 page. */
-router.get('/404', function(req, res, next) {
+router.get('/404', function(req, res) {
     res.render('404');
 });
 
+/* GET working on page. */
+router.get('/working-on', function(req, res) {
+    res.render('working');
+});
+
 module.exports = router;
+
+

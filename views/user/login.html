@@ -1,0 +1,32 @@
+{% extends '../layout.html' %}
+
+{% block title %}
+    登录
+{% endblock %}
+
+{% block content %}
+
+    {% include "../partials/navbar.html" %}
+
+    <div class="container">
+        {% include "../partials/flash.html" %}
+    </div>
+
+    <div class="container" style="padding-top: 20px">
+        <form action="/login" method="POST" class="form-signin">
+            <input type="hidden" name="_csrf" value="_csrf"/>
+            <h4 class="form-signin-heading">请登录</h4>
+            <label for="inputUsername" class="sr-only">邮箱（必须）</label>
+            <input type="email" id="inputEmail" name="email" placeholder="xxxxxx@gmail.com" required="true" autofocus="true" class="form-control"/>
+            <label for="inputPassword" class="sr-only">密码（必须）</label>
+            <input type="password" id="inputPassword" name="password" placeholder="E9oGGzQ7ghTwTX" required="required" class="form-control"/>
+            <label for="rememberPassword" style="display:none" class="checkbox">记住我
+                <input type="checkbox" id="rememberPassword" data-toggle="checkbox" class="custom-checkbox"/><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+            </label>
+            <button type="submit" class="btn btn-lg btn-primary btn-block"><span style="margin-right: 8px" class="fa fa-sign-in"></span>登录</button>
+        </form>
+    </div>
+
+    {% include "../partials/footer.html" %}
+
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends '../layout.html' %}
+
+{% block title %}
+    Account
+{% endblock %}
+
+{% block content %}
+
+
+    {% include "../partials/navbar.html" %}
+
+    <div class="container">
+        {% include "../partials/flash.html" %}
+    </div>
+
+    <div class="container" style="margin-bottom: 60px">
+        <div class="page-header">
+            <h4>Profile Information</h4>
+        </div>
+        <form action="/account/profile" method="POST" class="form-horizontal">
+            <input type="hidden" name="_csrf" value="_csrf"/>
+            <div class="form-group">
+                <label for="email" class="col-sm-3 control-label">Email</label>
+                <div class="col-sm-7">
+                    <input type="email" name="email" id="email" class="form-control" value="{{ user.email }}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name" class="col-sm-3 control-label">Name</label>
+                <div class="col-sm-7">
+                    <input type="text" name="name" id="name" class="form-control" value="{{ user.profile.name }}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="gender" class="col-sm-3 control-label">Gender</label>
+                <div class="col-sm-6" style="margin-top: 10px; padding-left: 0px;">
+                    <div class="col-sm-4">
+                        <label class="radio" for="radio1">
+                            <input type="radio" value="male" id="radio1" data-toggle="radio" name="gender"  {% if user.profile.gender == 'male' %} checked="checked" {% endif %} class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                              Male
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="radio" for="radio2">
+                            <input type="radio" value="female" id="radio2" data-toggle="radio" name="gender" {% if user.profile.gender == 'female' %} checked="checked" {% endif %} class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                            Female
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="radio" for="radio3">
+                            <input type="radio" value="keepsecret" id="radio3" data-toggle="radio" name="gender" {% if user.profile.gender == 'keepsecret' %} checked="checked" {% endif %} class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                            Keep Secret
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="location" class="col-sm-3 control-label">Location</label>
+                <div class="col-sm-7">
+                    <input type="text" name="location" id="location" class="form-control" value="{{ user.profile.location }}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="website" class="col-sm-3 control-label">Website</label>
+                <div class="col-sm-7">
+                    <input type="text" name="website" id="website" class="form-control" value="{{ user.profile.website }}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="gravatar" class="col-sm-3 control-label">Gravatar</label>
+                <div class="col-sm-4"><img src="{{ user.gravatar() }}"," width="100" height="100" class="profile" /></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-4">
+                    <button type="submit" class="btn btn btn-info"><i class="fa fa-pencil"></i>&nbsp
+                Update Profile
+              </button>
+                </div>
+            </div>
+        </form>
+        <div style="margin-top: 30px; padding-bottom: 0px;" class="page-header">
+            <h4>Change Password</h4>
+        </div>
+        <form action="/account/password" method="POST" class="form-horizontal">
+            <input type="hidden" name="_csrf" />
+            <div class="form-group">
+                <label for="password" class="col-sm-3 control-label">New Password</label>
+                <div class="col-sm-7">
+                    <input type="password" name="password" id="password" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword" class="col-sm-3 control-label">Confirm Password</label>
+                <div class="col-sm-7">
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-4">
+                    <button type="submit" class="btn btn-warning"><i class="fa fa-key"></i>&nbsp
+                Change Password
+              </button>
+                </div>
+            </div>
+        </form>
+        <div style="margin-top: 30px; padding-bottom: 0px;" class="page-header">
+            <h4>Delete Account</h4>
+        </div>
+        <form action="/account/delete" method="POST" class="form-horizontal">
+            <div class="form-group">
+                <p class="col-sm-offset-3 col-sm-8">You can delete your account, but keep in mind this action is irreversible.</p>
+                <input type="hidden" name="_csrf" />
+                <div class="col-sm-offset-3 col-sm-4">
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp
+                Delete my account
+              </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    {% include "../partials/footer.html" %}
+
+{% endblock %}
+
