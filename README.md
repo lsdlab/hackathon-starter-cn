@@ -1,11 +1,11 @@
 # hackathon-starter-cn
 
-copycat of [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter)，不过是翻版。他里面的第三方登录都是 Google, Twitter，我想给他换成微博微信，还有就是他用的是 Jade 模板，我想换成 React，什么 gulp, webpack 全管上。
+copycat of [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter)，抄过来改改，本地邮箱登录、Google、Twitter、GitHub 登录这三个是需要的，其他的就不要了，把邮箱和短信服务对接上去，然后就留着自用。
 
 ## Changelog：
-### 2016/05/09
+### 2016/05/31
 
-
+模板引擎换成  `swig`，比 `Jade` 好用多了，本地邮箱登录注册功能完成。
 
 ## LICENSE
 
