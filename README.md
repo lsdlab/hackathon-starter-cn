@@ -1,5 +1,7 @@
 # hackathon-starter-cn
 
+[![Dependency Status](https://david-dm.org/boennemann/badges.svg)](https://david-dm.org/boennemann/badges)    [![Dependency Status](https://david-dm.org/boennemann/badges.svg?theme=shields.io)](https://david-dm.org/boennemann/badges)    [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+ 
 copycat of [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter)，抄过来改改，本地邮箱登录、Google、Twitter、GitHub 登录这三个是需要的，其他的就不要了，把邮箱和短信服务对接上去，然后就留着自用。
 
 ## Changelog：
