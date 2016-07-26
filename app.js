@@ -17,13 +17,17 @@ var MongoStore = require('connect-mongo/es5')(session);
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var multer = require('multer');
-var upload = multer({ dest: path.join(__dirname, 'uploads') });
+var upload = multer({
+    dest: path.join(__dirname, 'uploads')
+});
 
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
-dotenv.load({ path: '.env.example' });
+dotenv.load({
+    path: '.env.example'
+});
 
 /**
  * API keys and Passport configuration.
@@ -41,7 +45,7 @@ mongoose.connection.on('error', function() {
     process.exit(1);
 });
 
-// view engine setup
+// swig template engine setup
 var swig = require('swig');
 // This is where all the magic happens!
 app.engine('html', swig.renderFile);
