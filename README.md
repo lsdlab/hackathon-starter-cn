@@ -1,6 +1,6 @@
 # hackathon-starter-cn
 
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
+![Language](https://img.shields.io/badge/language-JavaScript-orange.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
  
 copycat of [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter)，抄过来改改，本地邮箱登录、Google、Twitter、GitHub 登录这三个是需要的，其他的就不要了，把邮箱和短信服务对接上去，然后就留着自用。
 
