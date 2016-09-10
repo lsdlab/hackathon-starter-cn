@@ -26,7 +26,7 @@ const upload = multer({ dest: path.join(__dirname, 'uploads') })
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
 dotenv.load({
-    path: '.env.example'
+    path: '.env.development'
 })
 
 /**
@@ -39,7 +39,7 @@ var passportConfig = require('./passport/passport')
  */
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.on('connected', () => {
-  console.log('%s MongoDB connection established!', chalk.green('✓'));
+  console.log('%s MongoDB connection established!', chalk.blue('✓'));
 });
 mongoose.connection.on('error', () => {
   console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
