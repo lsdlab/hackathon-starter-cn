@@ -32,38 +32,21 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="gender" class="col-sm-3 control-label">Gender</label>
-                <div class="col-sm-7 mt10 pln ml20">
-                    <div class="col-sm-4">
-                        <label class="radio" for="radio1">
-                            <input type="radio" value="male" id="radio1" data-toggle="radio" name="gender"  {% if user.profile.gender == 'male' %} checked="checked" {% endif %} class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
-                              Male
-                        </label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="radio" for="radio2">
-                            <input type="radio" value="female" id="radio2" data-toggle="radio" name="gender" {% if user.profile.gender == 'female' %} checked="checked" {% endif %} class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
-                            Female
-                        </label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="radio" for="radio3">
-                            <input type="radio" value="keepsecret" id="radio3" data-toggle="radio" name="gender" {% if user.profile.gender == 'keepsecret' %} checked="checked" {% endif %} class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
-                            Keep Secret
-                        </label>
-                    </div>
+                <label for="bio" class="col-sm-3 control-label">Bio</label>
+                <div class="col-sm-7">
+                    <input type="text" name="bio" id="bio" class="form-control" value="{{ user.profile.bio }}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="url" class="col-sm-3 control-label">URL</label>
+                <div class="col-sm-7">
+                    <input type="text" name="url" id="url" class="form-control" value="{{ user.profile.url }}" />
                 </div>
             </div>
             <div class="form-group">
                 <label for="location" class="col-sm-3 control-label">Location</label>
                 <div class="col-sm-7">
                     <input type="text" name="location" id="location" class="form-control" value="{{ user.profile.location }}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="website" class="col-sm-3 control-label">Website</label>
-                <div class="col-sm-7">
-                    <input type="text" name="website" id="website" class="form-control" value="{{ user.profile.website }}" />
                 </div>
             </div>
             <div class="form-group">

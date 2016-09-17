@@ -1,23 +1,25 @@
-var express = require('express')
-var path = require('path')
+const express = require('express')
+const path = require('path')
 // var favicon = require('serve-favicon')
-var logger = require('morgan')
-var cookieParser = require('cookie-parser')
-var bodyParser = require('body-parser')
+const logger = require('morgan')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
 
-var indexRouter = require('./routes/index')
-var userRouter = require('./routes/user')
+const indexRouter = require('./routes/index')
+const userRouter = require('./routes/user')
 
 // dependencies
 const dotenv = require('dotenv')
 const chalk = require('chalk');
-const flash = require('express-flash')
-const lusca = require('lusca')
+
+const expressValidator = require('express-validator')
 const mongoose = require('mongoose')
 const session = require('express-session')
 const MongoStore = require('connect-mongo/es5')(session)
+const lusca = require('lusca')
+
+const flash = require('express-flash')
 const passport = require('passport')
-const expressValidator = require('express-validator')
 const multer = require('multer')
 const upload = multer({ dest: path.join(__dirname, 'uploads') })
 
@@ -85,23 +87,25 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(expressValidator())
 app.use(session({
-    resave: true,
-    saveUninitialized: true,
     secret: process.env.MONGODB_SECRET,
+    saveUninitialized: true,
+    resave: true,
     store: new MongoStore({
         url: process.env.MONGODB_URI,
         autoReconnect: true
     })
 }))
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(flash())
 app.use(lusca.xframe('SAMEORIGIN'))
 app.use(lusca.xssProtection(true))
+app.use(flash())
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(function(req, res, next) {
     res.locals.user = req.user
     next()
 })
+app.locals._ = require('underscore')
+
 
 app.use('/', indexRouter)
 app.use('/', userRouter)
@@ -137,13 +141,11 @@ app.use(function(err, req, res, next) {
     })
 })
 
-app.locals._ = require('underscore')
-
 /**
  * Start Express server.
  */
 app.listen(app.get('port'), () => {
-  console.log('%s Express server listening on port %d in %s mode.', chalk.green('✓'), app.get('port'), app.get('env'));
+  console.log('%s Express server listening on port %d in %s mode.', chalk.blue('✓'), app.get('port'), app.get('env'));
 });
 
 module.exports = app;

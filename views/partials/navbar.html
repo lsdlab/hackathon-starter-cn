@@ -4,6 +4,9 @@
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
             <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
         </button>
             <a class="navbar-brand" href="/">
                 <span style="margin-right: 6px"><i class="fa fa-heart" aria-hidden="true"></i></span> Hackathon Starter CN
@@ -15,17 +18,20 @@
             <ul class="nav navbar-nav navbar-left">
                 <li {% if title == 'index' %} class="active" {% endif %}><a href="/">首页</a></li>
                 <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">API<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">结束<b class="caret"></b></a>
                     <span class="dropdown-arrow"></span>
                     <ul class="dropdown-menu">
-                        <li><a href="/api/mailgun">Mailgun</a></li>
-                        <li><a href="/api/postmark">Postmark</a></li>
-                        <li><a href="/api/sendgrid">SendGrid</a></li>
+                        <li><a href="/scaffold">脚手架</a></li>
                         <li class="divider"></li>
-                        <li><a href="/api/example">API Example</a></li>
+                        <li><a href="/api">API</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/email/nodemailer">nodemailer</a></li>
+                        <li><a href="/email/postmark">Postmark</a></li>
+                        <li><a href="/email/sendgrid">SendGrid</a></li>
+                        <li class="divider"></li>
                     </ul>
+                    <li {% if title == 'about' %} class="active" {% endif %}><a href="/about">关于</a></li>
                 </li>
-                <li {% if title == 'about' %} class="active" {% endif %}><a href="/about">About</a></li>
             </ul>
 
             {% if user %}

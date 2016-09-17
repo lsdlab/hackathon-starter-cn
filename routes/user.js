@@ -137,9 +137,9 @@ router.post('/account/profile', function(req, res, next) {
         }
         user.email = req.body.email || ''
         user.profile.name = req.body.name || ''
-        user.profile.gender = req.body.gender || ''
+        user.profile.bio = req.body.bio || ''
+        user.profile.url = req.body.url || ''
         user.profile.location = req.body.location || ''
-        user.profile.website = req.body.website || ''
         user.save(function(err) {
             if (err) {
                 return next(err)

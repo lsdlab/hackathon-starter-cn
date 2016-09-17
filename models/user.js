@@ -9,27 +9,28 @@ var userSchema = new mongoose.Schema({
         unique: true
     },
     password: String,
+    quickLoginToken: String,
     passwordResetToken: String,
-    passwordResetExpires: Date,
+    accountStatus: String,
 
     profile: {
         name: {
             type: String,
             default: ''
         },
-        gender: {
+        bio: {
             type: String,
-            default: 'keepsecret'
+            default: ''
+        },
+        url: {
+            type: String,
+            default: ''
         },
         location: {
             type: String,
             default: ''
         },
-        website: {
-            type: String,
-            default: ''
-        },
-        picture: {
+        avatar: {
             type: String,
             default: ''
         }
@@ -48,7 +49,6 @@ var userSchema = new mongoose.Schema({
         type: String,
         default: 'local'
     }
-
 });
 
 /**
