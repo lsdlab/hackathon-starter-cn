@@ -24,7 +24,7 @@ router.get('/signup', function(req, res) {
  */
 router.post('/signup', function(req, res, next) {
     req.assert('email', 'Email is not valid').isEmail()
-    req.assert('password', 'Password must be at least 6 characters long').len(6)
+    req.assert('password', 'Password must be at least 8 characters long').len(8)
     req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password)
 
     var errors = req.validationErrors()
@@ -155,7 +155,7 @@ router.post('/account/profile', function(req, res, next) {
  * Update current password.
  */
 router.post('/account/password', function(req, res, next) {
-    req.assert('password', 'Password must be at least 4 characters long').len(4)
+    req.assert('password', 'Password must be at least 8 characters long').len(8)
     req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password)
 
     var errors = req.validationErrors()
