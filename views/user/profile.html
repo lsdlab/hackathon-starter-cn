@@ -1,109 +1,138 @@
 {% extends '../layout.html' %}
 
 {% block title %}
-    Account
+  Account
 {% endblock %}
 
 {% block content %}
 
+  {% include "../partials/navbar.html" %}
 
-    {% include "../partials/navbar.html" %}
+  <div class="container mt10">
+    {% include "../partials/flash.html" %}
+  </div>
 
-    <div class="container">
-        {% include "../partials/flash.html" %}
+  <div class="container" style="margin-bottom: 120px">
+    <div class="page-header">
+      <h4>Profile Information</h4>
     </div>
-
-    <div class="container" style="margin-bottom: 60px">
-        <div class="page-header">
-            <h4>Profile Information</h4>
+    <form action="/account/profile" method="POST" class="form-horizontal">
+      <input type="hidden" name="_csrf" value="_csrf"/>
+      <div class="form-group">
+        <label for="email" class="col-sm-3 control-label">Email</label>
+        <div class="col-sm-7">
+            <input type="email" name="email" id="email" class="form-control" value="{{ user.email }}" />
         </div>
-        <form action="/account/profile" method="POST" class="form-horizontal">
-            <input type="hidden" name="_csrf" value="_csrf"/>
-            <div class="form-group">
-                <label for="email" class="col-sm-3 control-label">Email</label>
-                <div class="col-sm-7">
-                    <input type="email" name="email" id="email" class="form-control" value="{{ user.email }}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="name" class="col-sm-3 control-label">Name</label>
-                <div class="col-sm-7">
-                    <input type="text" name="name" id="name" class="form-control" value="{{ user.profile.name }}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="bio" class="col-sm-3 control-label">Bio</label>
-                <div class="col-sm-7">
-                    <input type="text" name="bio" id="bio" class="form-control" value="{{ user.profile.bio }}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="url" class="col-sm-3 control-label">URL</label>
-                <div class="col-sm-7">
-                    <input type="text" name="url" id="url" class="form-control" value="{{ user.profile.url }}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="location" class="col-sm-3 control-label">Location</label>
-                <div class="col-sm-7">
-                    <input type="text" name="location" id="location" class="form-control" value="{{ user.profile.location }}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="gravatar" class="col-sm-3 control-label">Gravatar</label>
-                <div class="col-sm-4"><img src="{{ user.gravatar() }}"," width="100" height="100" class="profile" /></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-4">
-                    <button type="submit" class="btn btn btn-info"><i class="fa fa-pencil"></i>&nbsp
-                Update Profile
-              </button>
-                </div>
-            </div>
-        </form>
-        <div class="page-header mt30 pbn">
-            <h4>Change Password</h4>
+      </div>
+      <div class="form-group">
+        <label for="name" class="col-sm-3 control-label">Name</label>
+        <div class="col-sm-7">
+            <input type="text" name="name" id="name" class="form-control" value="{{ user.profile.name }}" />
         </div>
-        <form action="/account/password" method="POST" class="form-horizontal">
-            <input type="hidden" name="_csrf" />
-            <div class="form-group">
-                <label for="password" class="col-sm-3 control-label">New Password</label>
-                <div class="col-sm-7">
-                    <input type="password" name="password" id="password" class="form-control" />
-                </div>
+      </div>
+      <div class="form-group">
+        <label for="bio" class="col-sm-3 control-label">Bio</label>
+        <div class="col-sm-7">
+            <input type="text" name="bio" id="bio" class="form-control" value="{{ user.profile.bio }}" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="url" class="col-sm-3 control-label">URL</label>
+        <div class="col-sm-7">
+            <input type="text" name="url" id="url" class="form-control" value="{{ user.profile.url }}" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="location" class="col-sm-3 control-label">Location</label>
+        <div class="col-sm-7">
+            <input type="text" name="location" id="location" class="form-control" value="{{ user.profile.location }}" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="gravatar" class="col-sm-3 control-label">Gravatar</label>
+        <div class="col-sm-4"><img src="{{ user.profile.avatar || user.gravatar(user.email.toString()) }}"," width="100" height="100" class="profile" /></div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-4">
+          <button type="submit" class="btn btn btn-primary"><i class="fa fa-pencil"></i>&nbsp
+            Update Profile
+          </button>
+        </div>
+      </div>
+    </form>
+      <div class="page-header mt30 pbn">
+          <h4>Change Password</h4>
+      </div>
+      <form action="/account/password" method="POST" class="form-horizontal">
+          <input type="hidden" name="_csrf" />
+          <div class="form-group">
+            <label for="old-password" class="col-sm-3 control-label">Old Password</label>
+            <div class="col-sm-7">
+                <input type="password" name="old-password" id="old-password" class="form-control" />
             </div>
-            <div class="form-group">
-                <label for="confirmPassword" class="col-sm-3 control-label">Confirm Password</label>
-                <div class="col-sm-7">
-                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" />
-                </div>
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-sm-3 control-label">New Password</label>
+            <div class="col-sm-7">
+                <input type="password" name="password" id="password" class="form-control" />
             </div>
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-4">
-                    <button type="submit" class="btn btn-warning"><i class="fa fa-key"></i>&nbsp
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword" class="col-sm-3 control-label">Confirm New Password</label>
+            <div class="col-sm-7">
+                <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-4">
+              <button type="submit" class="btn btn-primary"><i class="fa fa-key"></i>&nbsp
                 Change Password
               </button>
-                </div>
             </div>
-        </form>
-        <div class="page-header mt30 pbn">
-            <h4>Delete Account</h4>
+          </div>
+      </form>
+      <div class="page-header mt30 pbn">
+        <h4>Delete Account</h4>
+      </div>
+      <form action="/account/delete" method="POST" class="form-horizontal">
+        <div class="form-group">
+          <p class="col-sm-offset-3 col-sm-8">You can delete your account, but keep in mind this action is irreversible.</p>
+          <input type="hidden" name="_csrf" />
+          <div class="col-sm-offset-3 col-sm-4">
+            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp
+              Delete my account
+            </button>
+          </div>
         </div>
-        <form action="/account/delete" method="POST" class="form-horizontal">
-            <div class="form-group">
-                <p class="col-sm-offset-3 col-sm-8">You can delete your account, but keep in mind this action is irreversible.</p>
-                <input type="hidden" name="_csrf" />
-                <div class="col-sm-offset-3 col-sm-4">
-                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp
-                Delete my account
-              </button>
-                </div>
-            </div>
-        </form>
-    </div>
+      </form>
+      <div class="page-header mt30 pbn">
+        <h4>Linked Accounts</h4>
+      </div>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-4">
+            {% if user.google %}
+              <p><a href="/account/unlink/google">Unlink your Google account</a></p>
+            {% else %}
+              <p><a href="/auth/google">Link your Google account</a></p>
+            {% endif %}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-4">
+            {% if user.github %}
+              <p><a href="/account/unlink/github">Unlink your GitHub account</a></p>
+            {% else %}
+              <p><a href="/auth/github">Link your GitHub account</a></p>
+            {% endif %}
+          </div>
+        </div>
+      </form>
 
 
-    {% include "../partials/footer.html" %}
+  </div>
+
+  {% include "../partials/footer.html" %}
 
 {% endblock %}
 

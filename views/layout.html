@@ -1,39 +1,41 @@
 <!doctype html>
 <html lang="zh-cn">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>
-            {% block title %}
-                Hackathon Starter CN
-            {% endblock %}
-        </title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <title>
+      {% block title %}
+          Hackathon Starter CN
+      {% endblock %}
+    </title>
+    <meta name="keyword" content="">
+    <meta name="description" content="">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-        <link rel="apple-touch-icon" href="img/apple-touch-icon-precomposed.png">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon-precomposed.png">
 
-        {% block css %}
-            <link rel="stylesheet" href="css/bootstrap.min.css">
-            <link rel="stylesheet" href="css/font-awesome.min.css">
-            <link rel="stylesheet" href="css/normalize.css">
-            <link rel="stylesheet" href="css/helper.min.css">
-            <link rel="stylesheet" href="css/style.css">
-        {% endblock %}
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/helper.min.css">
+    <link rel="stylesheet" href="css/style.css">
 
-        {% block style %}
-        {% endblock %}
-    </head>
 
-    <body>
+    {% block css %}
+    {% endblock %}
 
-        {% block content %}
-        {% endblock %}
+    {% block js %}
+    {% endblock %}
+  </head>
 
-        {% block js %}
-            <script src="js/jquery-3.0.0.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-        {% endblock %}
-    </body>
+  <body>
+    {% block content %}
+    {% endblock %}
+
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    {% block page-js %}
+    {% endblock %}
+  </body>
 </html>

@@ -1,42 +1,39 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    首页
+  首页
 {% endblock %}
 
 {% block content %}
-    {% include "partials/navbar.html" %}
+  {% include "partials/navbar.html" %}
 
-    <div class="container">
-        {% include "partials/flash.html" %}
+  <div class="container mt10">
+      {% include "partials/flash.html" %}
+  </div>
+
+  <div class="container" style="margin-bottom: 100px">
+    <div class="jumbotron pt20 pl20 pr20 pb20 mb20">
+      <h1>Hackathon Starter CN</h1>
+      <p class="lead">开始新项目的模板，包含基本的用户模块以及邮件服务，提供 API。</p>
+      <p><a class="btn btn-lg btn-primary" href="/" role="button"><span class="fa fa-sign-in mr5"></span>开始使用</a></p>
     </div>
-
-    <div style="margin-bottom: 60px">
-        <div class="container jumbotron mbn pbn ptn">
-            <h1>Hackathon Starter CN</h1>
-            <p class="lead">开始新项目的模板，包含基本的用户模块以及邮件服务，提供 API。</p>
-            <p><a class="btn btn-lg btn-success" href="/" role="button">开始使用</a></p>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                  <h3>用户模块脚手架</h3>
-                  <p>Node.js、Express、MongoDB 做的用户模块，新项目脚手架</p>
-                  <p><a class="btn btn-primary" href="/scaffold" role="button">介绍 »</a></p>
-               </div>
-               <div class="col-md-4">
-                  <h3>API</h3>
-                  <p>全部功能提供 API</p>
-                  <p><a class="btn btn-primary" href="/api" role="button">API Example »</a></p>
-               </div>
-                <div class="col-md-4">
-                  <h3>集成第三方邮件服务</h3>
-                  <p>自建邮件发送服务和 Postmark, SendGrid 第三方邮件发送服务</p>
-                  <p><a class="btn btn-primary" href="/email" role="button">Email API Example »</a></p>
-               </div>
-
-            </div>
-        </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h3>用户模块脚手架</h3>
+        <p>Node.js、Express、MongoDB 做的用户模块，新项目脚手架</p>
+        <p><a class="btn btn-info" href="/scaffold" role="button"><span class="fa fa-sign-in mr5"></span>介绍 »</a></p>
+      </div>
+      <div class="col-md-4">
+        <h3>API</h3>
+        <p>全部功能提供 API</p>
+        <p><a class="btn btn-info" href="/api" role="button"><span class="fa fa-file-text-o mr5"></span>API Example »</a></p>
+      </div>
+      <div class="col-md-4">
+        <h3>集成第三方邮件服务</h3>
+        <p>自建邮件发送服务和 Postmark, SendGrid 第三方邮件发送服务</p>
+        <p><a class="btn btn-info" href="/email" role="button"><span class="fa fa-envelope-o mr5"></span>Email API Example »</a></p>
+      </div>
     </div>
-    {% include "partials/footer.html" %}
+  </div>
+  {% include "partials/footer.html" %}
 {% endblock %}

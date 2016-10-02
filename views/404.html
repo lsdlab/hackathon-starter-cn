@@ -1,16 +1,18 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    404
+  404
 {% endblock %}
 
 {% block content %}
-    {% include "partials/navbar.html" %}
 
-    <div class="container">
-        <h1 class="emptyh">Page Not Found</h1>
-        <p class="emptyp">Sorry, but the page you were trying to view does not exist.</p>
-    </div>
+  {% include "partials/navbar.html" %}
 
-    {% include "partials/footer.html" %}
+  <div class="container">
+    <h1 class="centerh">Page Not Found</h1>
+    <p class="centerp">Sorry, but the page you were trying to view does not exist.</p>
+  </div>
+
+  {% include "partials/footer.html" %}
+
 {% endblock %}

@@ -1,24 +1,24 @@
 {% if messages.errors %}
-    <div class="alert alert-warning" role="alert">
-        {% for error in messages.errors %}
-            {{ error.msg }}
-        {% endfor %}
-    </div>
+  <div class="alert alert-warning" role="alert">
+    {% for error in messages.errors %}
+      {{ error.msg }}
+    {% endfor %}
+  </div>
 {% endif %}
 
 {% if messages.info %}
-    <div class="alert alert-info" role="alert">
-        {% for info in messages.info %}
-            {{ info.msg }}
-        {% endfor %}
-    </div>
+  <div class="alert alert-info" role="alert">
+    {% for info in messages.info %}
+      {{ info.msg }}
+    {% endfor %}
+  </div>
 {% endif %}
 
 {% if messages.success %}
-    <div class="alert alert-success" role="alert">
-        {% for success in messages.success %}
-            {{ success.msg }}
-        {% endfor %}
-    </div>
+  <div class="alert alert-success" role="alert">
+    {% for success in messages.success %}
+      {{ success.msg }}
+    {% endfor %}
+  </div>
 {% endif %}
 

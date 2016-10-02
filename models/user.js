@@ -1,103 +1,117 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt-nodejs');
-const crypto = require('crypto');
+const mongoose = require('mongoose')
+const bcrypt = require('bcrypt-nodejs')
+const crypto = require('crypto')
 
 var userSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        lowercase: true,
-        unique: true
-    },
-    password: String,
-    quickLoginToken: String,
-    passwordResetToken: String,
-    accountStatus: String,
+  email: {
+    type: String,
+    lowercase: true,
+    unique: true
+  },
+  password: String,
+  quickLoginToken: String,
+  passwordResetToken: String,
+  passwordResetExpires: String,
+  accountStatus: {
+    type: String,
+    default: ''
+  },
 
-    profile: {
-        name: {
-            type: String,
-            default: ''
-        },
-        bio: {
-            type: String,
-            default: ''
-        },
-        url: {
-            type: String,
-            default: ''
-        },
-        location: {
-            type: String,
-            default: ''
-        },
-        avatar: {
-            type: String,
-            default: ''
-        }
-    },
+  google: String,
+  github: String,
+  tokens: Array,
 
-    created: {
-        type: Date,
-        default: Date.now
+  profile: {
+    name: {
+      type: String,
+      default: ''
     },
-    updated: {
-        type: Date,
-        default: Date.now
+    bio: {
+      type: String,
+      default: ''
     },
-
-    provider: {
-        type: String,
-        default: 'local'
+    url: {
+      type: String,
+      default: ''
+    },
+    location: {
+      type: String,
+      default: ''
+    },
+    avatar: {
+      type: String,
+      default: ''
     }
-});
+  },
+
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  updated: {
+    type: Date,
+    default: Date.now
+  },
+
+  provider: {
+    type: String,
+    default: 'local'
+  }
+})
 
 /**
  * Password hash middleware.
  */
-userSchema.pre('save', function(next) {
-    var user = this;
-    if (!user.isModified('password')) {
-        return next();
+userSchema.pre('save', (next) => {
+  var user = this
+  if (!user.isModified('password')) {
+    return next()
+  }
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) {
+      return next(err)
     }
-    bcrypt.genSalt(10, function(err, salt) {
-        if (err) {
-            return next(err);
-        }
-        bcrypt.hash(user.password, salt, null, function(err, hash) {
-            if (err) {
-                return next(err);
-            }
-            user.password = hash;
-            next();
-        });
-    });
-});
+    bcrypt.hash(user.password, salt, null, (err, hash) => {
+      if (err) {
+        return next(err)
+      }
+      user.password = hash
+      next()
+    })
+  })
+})
 
 /**
  * Helper method for validating user's password.
  */
-userSchema.methods.comparePassword = function(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-        if (err) {
-            return cb(err);
-        }
-        cb(null, isMatch);
-    });
-};
+userSchema.methods.comparePassword = (candidatePassword, cb) => {
+  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+    if (err) {
+      return cb(err)
+    }
+    cb(null, isMatch)
+  })
+}
 
 /**
  * Helper method for getting user's gravatar.
  */
-userSchema.methods.gravatar = function(size) {
-    if (!size) {
-        size = 200;
-    }
-    if (!this.email) {
-        return 'https://gravatar.com/avatar/?s=' + size + '&d=retro';
-    }
-    var md5 = crypto.createHash('md5').update(this.email).digest('hex');
-    return 'https://gravatar.com/avatar/' + md5 + '?s=' + size + '&d=retro';
-};
+userSchema.methods.gravatar = (email, size) => {
+  if (!size) {
+    size = 200
+  }
 
-var User = mongoose.model('User', userSchema);
-module.exports = User;
+  if (email) {
+    var email = email
+  }
+  console.log(email)
+  if (!email) {
+    return 'https://gravatar.com/avatar/?s=' + size + '&d=retro'
+  }
+  var md5 = crypto.createHash('md5').update(email).digest('hex')
+
+  return 'https://gravatar.com/avatar/' + md5 + '?s=' + size + '&d=retro'
+}
+
+var User = mongoose.model('User', userSchema)
+module.exports = User
