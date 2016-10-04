@@ -14,10 +14,9 @@ var userSchema = new mongoose.Schema({
   passwordResetExpires: String,
   accountStatus: {
     type: String,
-    default: ''
+    default: '0'
   },
 
-  google: String,
   github: String,
   tokens: Array,
 
@@ -62,19 +61,17 @@ var userSchema = new mongoose.Schema({
 /**
  * Password hash middleware.
  */
-userSchema.pre('save', (next) => {
-  var user = this
+userSchema.pre('save', function(next) {
+  const user = this
   if (!user.isModified('password')) {
     return next()
   }
   bcrypt.genSalt(10, (err, salt) => {
     if (err) {
-      return next(err)
-    }
+      return next(err) }
     bcrypt.hash(user.password, salt, null, (err, hash) => {
       if (err) {
-        return next(err)
-      }
+        return next(err) }
       user.password = hash
       next()
     })
@@ -84,14 +81,11 @@ userSchema.pre('save', (next) => {
 /**
  * Helper method for validating user's password.
  */
-userSchema.methods.comparePassword = (candidatePassword, cb) => {
+userSchema.methods.comparePassword = function (candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-    if (err) {
-      return cb(err)
-    }
-    cb(null, isMatch)
-  })
-}
+    cb(err, isMatch);
+  });
+};
 
 /**
  * Helper method for getting user's gravatar.

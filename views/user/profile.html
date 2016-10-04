@@ -111,15 +111,6 @@
       <form class="form-horizontal">
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-4">
-            {% if user.google %}
-              <p><a href="/account/unlink/google">Unlink your Google account</a></p>
-            {% else %}
-              <p><a href="/auth/google">Link your Google account</a></p>
-            {% endif %}
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-3 col-sm-4">
             {% if user.github %}
               <p><a href="/account/unlink/github">Unlink your GitHub account</a></p>
             {% else %}

@@ -198,7 +198,10 @@ router.post('/account/delete', passportConfig.isAuthenticated, function(req, res
 })
 
 router.get('/account/unlink/:provider', passportConfig.isAuthenticated, function(req, res) {
-  const provider = req.params.provider
+  var provider = req.params.provider
+  if (req.params.provider === 'github') {
+    provider = 'GitHub'
+  }
   User.findById(req.user.id, (err, user) => {
     if (err) {
       return next(err)
@@ -215,21 +218,19 @@ router.get('/account/unlink/:provider', passportConfig.isAuthenticated, function
 })
 
 
-router.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }))
 
-router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
-  req.flash('info', { msg: 'Google account has been linked.' })
-  res.redirect(req.session.returnTo || '/')
-})
-
-
+/**
+ * GET /GitHub auth
+ */
 router.get('/auth/github', passport.authenticate('github', { scope: 'profile email' }))
 
+
+/**
+ * GET /GitHub auth callback
+ */
 router.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function(req, res) {
   req.flash('info', { msg: 'GitHub account has been linked.' })
   res.redirect(req.session.returnTo || '/')
 })
-
-router.get('/account/unlink/:provider')
 
 module.exports = router

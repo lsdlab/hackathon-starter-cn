@@ -1,6 +1,6 @@
 {% extends '../layout.html' %}
 {% block title %}
-  注册
+  Signup
 {% endblock %}
 
 {% block content %}
@@ -15,17 +15,16 @@
       <input type="hidden" name="_csrf" value="_csrf" />
       <h4 class="form-signin-heading">Signup</h4>
       <label for="inputEmail" class="sr-only">Email(Reuqired)</label>
-      <input type="email" id="email" name="email" placeholder="邮箱（必须）" required="true" autofocus="true" class="form-control" />
+      <input type="email" id="email" name="email" placeholder="Email(Reuqired)" required="true" autofocus="true" class="form-control" />
       <label for="inputPassword" class="sr-only">Password(Required</label>
-      <input type="password" id="inputPassword" name="password" placeholder="密码（必须）" required="true" style="border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; margin-top: -2px; margin-bottom: 0px" class="form-control" />
+      <input type="password" id="inputPassword" name="password" placeholder="Password(Reuqired)" required="true" style="border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; margin-top: -2px; margin-bottom: 0px" class="form-control" />
       <label for="inputconfirmPassword" class="sr-only">Confirm Password(Required)</label>
-      <input type="password" id="inputconfirmPassword" name="confirmPassword" placeholder="确认密码（必须）" required="true" style="border-top-right-radius: 0px; border-top-left-radius: 0px; margin-top: -2px" class="form-control" />
+      <input type="password" id="inputconfirmPassword" name="confirmPassword" placeholder="Confirm Password(Reuqired)" required="true" style="border-top-right-radius: 0px; border-top-left-radius: 0px; margin-top: -2px" class="form-control" />
       <button type="submit" class="btn btn-lg btn-primary btn-block"><span style="margin-right: 8px" class="fa fa-user-plus"></span>注册</button>
     </form>
     <div class="form-signin mt20">
-      <h4 class="form-signin-heading" style="display: inline;">第三方登录</h4>
-      <a href="/auth/google"><span class="fa fa-google fa-lg mr20 ml20 manual-tooltip" data-toggle="tooltip" data-placement="bottom" title="Google"></span></a>
-      <a href="/auth/github"><span class="fa fa-github fa-lg manual-tooltip" data-toggle="tooltip" data-placement="bottom" title="GitHub"></span></a>
+      <h4 class="form-signin-heading" style="display: inline;">Third Party Login: </h4>
+      <a href="/auth/github" class="ml10"><span class="fa fa-github fa-lg manual-tooltip" data-toggle="tooltip" data-placement="bottom" title="GitHub"></span></a>
     </div>
   </div>
 
