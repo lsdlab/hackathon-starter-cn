@@ -1,11 +1,12 @@
 const express = require('express')
 const router = express.Router()
 
+const q = require('q')
+
 const User = require('../models/user')
 const passport = require('passport')
 const passportConfig = require('../passport/passport')
 
-const q = require('q')
 
 /**
  * GET /signup
@@ -20,6 +21,7 @@ router.get('/signup', function(req, res) {
     title: 'signup'
   })
 })
+
 
 /**
  * POST /signup
@@ -55,11 +57,13 @@ router.post('/signup', function(req, res, next) {
         if (err) {
           return next(err)
         }
+        // TODO verify by email
         res.redirect('/')
       })
     })
   })
 })
+
 
 /**
  * GET /login
@@ -73,6 +77,7 @@ router.get('/login', function(req, res) {
     title: 'login'
   })
 })
+
 
 /**
  * POST /login
@@ -107,6 +112,7 @@ router.post('/login', function(req, res, next) {
   })(req, res, next)
 })
 
+
 /**
  * GET /logout
  * Log out.
@@ -115,6 +121,7 @@ router.get('/logout', function(req, res) {
   req.logout()
   res.redirect('/')
 })
+
 
 /**
  * GET /account
@@ -126,6 +133,7 @@ router.get('/account', passportConfig.isAuthenticated, function(req, res) {
   }
   res.render('user/profile')
 })
+
 
 /**
  * POST /account/profile
@@ -150,6 +158,7 @@ router.post('/account/profile', passportConfig.isAuthenticated, function(req, re
     })
   })
 })
+
 
 /**
  * POST /account/password
@@ -182,6 +191,7 @@ router.post('/account/password', passportConfig.isAuthenticated, function(req, r
   })
 })
 
+
 /**
  * POST /account/delete
  * Delete user account.
@@ -210,13 +220,13 @@ router.get('/account/unlink/:provider', passportConfig.isAuthenticated, function
     user.tokens = user.tokens.filter(token => token.kind !== provider)
     user.save((err) => {
       if (err) {
-        return next(err) }
+        return next(err)
+      }
       req.flash('info', { msg: `${provider} account has been unlinked.` })
       res.redirect('/account')
     })
   })
 })
-
 
 
 /**
@@ -232,5 +242,6 @@ router.get('/auth/github/callback', passport.authenticate('github', { failureRed
   req.flash('info', { msg: 'GitHub account has been linked.' })
   res.redirect(req.session.returnTo || '/')
 })
+
 
 module.exports = router

@@ -86,7 +86,9 @@ app.use(session({
   resave: true,
   store: new MongoStore({
     url: process.env.MONGODB_URI,
-    autoReconnect: true
+    autoReconnect: true,
+    autoRemove: 'native',
+    ttl: 14 * 24 * 60 * 60
   })
 }))
 app.use(lusca.xframe('SAMEORIGIN'))

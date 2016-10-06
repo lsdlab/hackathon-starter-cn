@@ -11,7 +11,7 @@ var userSchema = new mongoose.Schema({
   password: String,
   quickLoginToken: String,
   passwordResetToken: String,
-  passwordResetExpires: String,
+  passwordResetExpires: Date,
   accountStatus: {
     type: String,
     default: '0'

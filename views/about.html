@@ -4,8 +4,16 @@
   About
 {% endblock %}
 
+{% block css %}
+  <link rel="stylesheet" href="css/yue.css">
+{% endblock %}
+
 {% block content %}
   {% include "partials/navbar.html" %}
-  {% include "partials/working-on.html" %}
+  <div class="container yue mt50 pl40 pr40" style="margin-bottom: 100px">
+    {% autoescape false %}
+      {{ markdownContent }}
+    {% endautoescape %}
+  </div>
   {% include "partials/footer.html" %}
 {% endblock %}
