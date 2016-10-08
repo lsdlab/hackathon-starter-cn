@@ -72,6 +72,7 @@ passport.use(new GitHubStrategy({
           user.provider = 'github'
           user.provider_username = profile._json.location || ''
           user.save((err) => {
+            req.flash('info', { msg: `GitHub account has been linked.` })
             done(err, user)
           })
         })
@@ -80,36 +81,28 @@ passport.use(new GitHubStrategy({
   } else {
     User.findOne({ github: profile.id }, (err, existingUser) => {
       if (err) {
-        return done(err)
-      }
-      if (existingUser) {
-        return done(null, existingUser)
-      }
-      User.findOne({ email: profile._json.email }, (err, existingEmailUser) => {
-        if (err) {
           return done(err)
         }
-        if (existingEmailUser) {
-          req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with GitHub manually from Account Settings.' })
-          done(err)
-        } else {
-          const user = new User()
-          user.email = profile._json.email
-          user.github = profile.id
-          user.tokens.push({ kind: 'github', accessToken })
-          user.profile.name = profile.displayName
-          user.profile.avatar = profile._json.avatar_url
-          user.profile.location = profile._json.location
-          user.profile.bio = profile._json.bio
-          user.profile.url = profile._json.blog
-          user.profile.location = profile._json.location
-          user.provider = 'github'
-          user.provider_username = profile._json.location || ''
-          user.save((err) => {
-            done(err, user)
-          })
-        }
-      })
+      if (existingUser) {
+        return done(null, existingUser)
+      } else {
+        const user = new User()
+        user.email = profile._json.email
+        user.github = profile.id
+        user.tokens.push({ kind: 'github', accessToken })
+        user.profile.name = profile.displayName
+        user.profile.avatar = profile._json.avatar_url
+        user.profile.location = profile._json.location
+        user.profile.bio = profile._json.bio
+        user.profile.url = profile._json.blog
+        user.profile.location = profile._json.location
+        user.provider = 'github'
+        user.provider_username = profile._json.location || ''
+        user.save((err) => {
+          req.flash('info', { msg: `GitHub account has been linked.` })
+          done(err, user)
+        })
+      }
     })
   }
 }))

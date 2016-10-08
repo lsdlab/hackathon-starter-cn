@@ -24,9 +24,9 @@
             <li class="divider"></li>
             <li><a href="/api">API</a></li>
             <li class="divider"></li>
-            <li><a href="/email/postmark">Postmark</a></li>
-            <li><a href="/email/sendgrid">SendGrid</a></li>
-            <li><a href="/email/nodemailer">Nodemailer</a></li>
+            <li><a href="/postmark">Postmark</a></li>
+            <li><a href="/sendgrid">SendGrid</a></li>
+            <li><a href="/nodemailer">Nodemailer</a></li>
           </ul>
           <li {% if title=='about' %} class="active" {% endif %}><a href="/about">About</a></li>
         </li>
@@ -44,8 +44,8 @@
           </li>
         </ul>
       {% else %}
-        <ul class="nav navbar-nav navbar-right ml5 mr10">
-          <a href="/login" class="btn btn-primary navbar-btn btn-sm mr10"><span class="fa fa-sign-in mr10"></span>Login</a>
+        <ul class="nav navbar-nav navbar-right ml5 mr5">
+          <a href="/login" class="btn btn-primary navbar-btn btn-sm mr5"><span class="fa fa-sign-in mr5"></span>Login</a>
           <a href="/signup" class="btn btn-primary navbar-btn btn-sm"><span class="fa fa-user-plus mr5"></span>Signup</a>
         </ul>
       {% endif %}

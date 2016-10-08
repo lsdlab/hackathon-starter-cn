@@ -57,8 +57,8 @@ router.post('/signup', function(req, res, next) {
         if (err) {
           return next(err)
         }
-        // TODO verify by email
-        res.redirect('/')
+        req.flash('success', { msg: 'Create account successed!' })
+        return res.redirect('/signup')
       })
     })
   })
@@ -106,8 +106,8 @@ router.post('/login', function(req, res, next) {
       if (err) {
         return next(err)
       }
-      req.flash('success', { msg: 'Login successed' })
-      res.redirect(req.session.returnTo || '/')
+      req.flash('success', { msg: 'Login successed!' })
+      return res.redirect(req.session.returnTo || '/')
     })
   })(req, res, next)
 })
@@ -119,7 +119,7 @@ router.post('/login', function(req, res, next) {
  */
 router.get('/logout', function(req, res) {
   req.logout()
-  res.redirect('/')
+  return res.redirect('/')
 })
 
 
@@ -154,7 +154,7 @@ router.post('/account/profile', passportConfig.isAuthenticated, function(req, re
         return next(err)
       }
       req.flash('success', { msg: 'Profile information has been updated.' })
-      res.redirect('/account')
+      return res.redirect('/account')
     })
   })
 })
@@ -203,27 +203,27 @@ router.post('/account/delete', passportConfig.isAuthenticated, function(req, res
     }
     req.logout()
     req.flash('info', { msg: 'Your account has been deleted.' })
-    res.redirect('/')
+    return res.redirect('/')
   })
 })
 
 router.get('/account/unlink/:provider', passportConfig.isAuthenticated, function(req, res) {
-  var provider = req.params.provider
-  if (req.params.provider === 'github') {
-    provider = 'GitHub'
-  }
+  const provider = req.params.provider;
   User.findById(req.user.id, (err, user) => {
     if (err) {
       return next(err)
     }
-    user[provider] = undefined
+    user[provider] = ''
     user.tokens = user.tokens.filter(token => token.kind !== provider)
     user.save((err) => {
       if (err) {
         return next(err)
       }
-      req.flash('info', { msg: `${provider} account has been unlinked.` })
-      res.redirect('/account')
+      if (provider == 'github') {
+        provider_name = 'GitHub'
+      }
+      req.flash('info', { msg: `${provider_name} account has been unlinked.` })
+      return res.redirect('/account')
     })
   })
 })
@@ -239,8 +239,7 @@ router.get('/auth/github', passport.authenticate('github', { scope: 'profile ema
  * GET /GitHub auth callback
  */
 router.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function(req, res) {
-  req.flash('info', { msg: 'GitHub account has been linked.' })
-  res.redirect(req.session.returnTo || '/')
+  return res.redirect(req.session.returnTo || '/')
 })
 
 
