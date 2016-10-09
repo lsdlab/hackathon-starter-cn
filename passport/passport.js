@@ -1,10 +1,11 @@
 const dotenv = require('dotenv')
-const _ = require('lodash')
+
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const GitHubStrategy = require('passport-github').Strategy
 
 const User = require('../models/user')
+
 
 dotenv.load({
   path: '.env.development'
@@ -33,7 +34,8 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
     }
     user.comparePassword(password, (err, isMatch) => {
       if (err) {
-        return done(err) }
+        return done(err)
+      }
       if (isMatch) {
         return done(null, user)
       }
@@ -72,7 +74,7 @@ passport.use(new GitHubStrategy({
           user.provider = 'github'
           user.provider_username = profile._json.location || ''
           user.save((err) => {
-            req.flash('info', { msg: `GitHub account has been linked.` })
+            req.flash('info', { msg: 'GitHub account has been linked.' })
             done(err, user)
           })
         })
@@ -81,9 +83,10 @@ passport.use(new GitHubStrategy({
   } else {
     User.findOne({ github: profile.id }, (err, existingUser) => {
       if (err) {
-          return done(err)
-        }
+        return done(err)
+      }
       if (existingUser) {
+        req.flash('success', { msg: 'Login successed!' })
         return done(null, existingUser)
       } else {
         const user = new User()
@@ -99,7 +102,7 @@ passport.use(new GitHubStrategy({
         user.provider = 'github'
         user.provider_username = profile._json.location || ''
         user.save((err) => {
-          req.flash('info', { msg: `GitHub account has been linked.` })
+          req.flash('info', { msg: 'GitHub account has been linked.' })
           done(err, user)
         })
       }

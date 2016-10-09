@@ -1,8 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-const q = require('q')
-
 const User = require('../models/user')
 const passport = require('passport')
 const passportConfig = require('../passport/passport')
@@ -207,20 +205,20 @@ router.post('/account/delete', passportConfig.isAuthenticated, function(req, res
   })
 })
 
-router.get('/account/unlink/:provider', passportConfig.isAuthenticated, function(req, res) {
+router.get('/account/unlink/:provider', passportConfig.isAuthenticated, function(req, res, next) {
   const provider = req.params.provider;
   User.findById(req.user.id, (err, user) => {
     if (err) {
       return next(err)
     }
-    user[provider] = ''
+    user.provider = 'local'
     user.tokens = user.tokens.filter(token => token.kind !== provider)
     user.save((err) => {
       if (err) {
         return next(err)
       }
       if (provider == 'github') {
-        provider_name = 'GitHub'
+        var provider_name = 'GitHub'
       }
       req.flash('info', { msg: `${provider_name} account has been unlinked.` })
       return res.redirect('/account')
