@@ -83,9 +83,9 @@ userSchema.pre('save', function(next) {
  */
 userSchema.methods.comparePassword = function (candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-    cb(err, isMatch);
-  });
-};
+    cb(err, isMatch)
+  })
+}
 
 /**
  * Helper method for getting user's gravatar.
@@ -96,13 +96,12 @@ userSchema.methods.gravatar = (email, size) => {
   }
 
   if (email) {
-    var email = email
+    var emailNew = email
   }
-  console.log(email)
-  if (!email) {
+  else if (!email) {
     return 'https://gravatar.com/avatar/?s=' + size + '&d=retro'
   }
-  var md5 = crypto.createHash('md5').update(email).digest('hex')
+  var md5 = crypto.createHash('md5').update(emailNew).digest('hex')
 
   return 'https://gravatar.com/avatar/' + md5 + '?s=' + size + '&d=retro'
 }

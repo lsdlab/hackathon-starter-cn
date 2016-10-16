@@ -10,12 +10,16 @@
     <meta name="description" content="">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='csrf-token', content=_csrf>
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/notie.css">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/helper.min.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/jquery-3.0.0.min.js"></script>
 
     {% block css %}
     {% endblock %}
@@ -28,9 +32,9 @@
     {% block content %}
     {% endblock %}
 
-    <script src="js/jquery-3.0.0.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
 
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/notie.min.js" async="async"></script>
     {% block page-js %}
     {% endblock %}
   </body>

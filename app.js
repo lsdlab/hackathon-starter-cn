@@ -22,6 +22,8 @@ const flash = require('express-flash')
 const passport = require('passport')
 const multer = require('multer')
 const upload = multer({ dest: path.join(__dirname, 'uploads') })
+require('nodejs-dashboard')
+
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -61,13 +63,16 @@ app.set('views', path.join(__dirname, '/views'))
 app.set('view cache', false)
   // To disable Swig's cache, do the following:
 swig.setDefaults({
-    cache: false
-  })
-  // NOTE: You should always cache templates in a production environment.
-  // Don't leave both of these to `false` in production!
+  cache: false
+})
+// NOTE: You should always cache templates in a production environment.
+// Don't leave both of these to `false` in production!
 
 // express status monitor
 app.use(require('express-status-monitor')())
+
+// nodejs-dashboard
+require('nodejs-dashboard')
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public/img/', 'favicon.png')))
@@ -77,7 +82,8 @@ app.use(bodyParser.urlencoded({
   extended: false
 }))
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
+
 
 app.use(expressValidator())
 app.use(session({
@@ -86,13 +92,17 @@ app.use(session({
   resave: true,
   store: new MongoStore({
     url: process.env.MONGODB_URI,
+    ttl: 7 * 24 * 60 * 60,
     autoReconnect: true,
-    autoRemove: 'native',
-    ttl: 14 * 24 * 60 * 60
+    autoRemove: 'native'
   })
 }))
-app.use(lusca.xframe('SAMEORIGIN'))
-app.use(lusca.xssProtection(true))
+
+app.use(lusca({
+  xframe: 'SAMEORIGIN',
+  xssProtection: true,
+  nosniff: true
+}))
 app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
@@ -100,6 +110,7 @@ app.use(function(req, res, next) {
   res.locals.user = req.user
   next()
 })
+
 app.locals._ = require('underscore')
 
 app.use(function(req, res, next) {
@@ -113,7 +124,7 @@ app.use(function(req, res, next) {
   }
   next()
 })
-app.post('/profile', upload.single('avatar'), function(req, res, next) {
+app.post('/profile/upload', upload.single('avatar'), function(req, res, next) {
   // req.file is the `avatar` file
   // req.body will hold the text fields, if there were any
 })

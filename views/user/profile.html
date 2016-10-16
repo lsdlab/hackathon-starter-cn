@@ -17,7 +17,7 @@
       <h4>Profile Information</h4>
     </div>
     <form action="/account/profile" method="POST" class="form-horizontal">
-      <input type="hidden" name="_csrf" value="_csrf"/>
+      <input type="hidden" name="_csrf" value=_csrf/>
       <div class="form-group">
         <label for="email" class="col-sm-3 control-label">Email</label>
         <div class="col-sm-7">
@@ -64,7 +64,7 @@
           <h4>Change Password</h4>
       </div>
       <form action="/account/password" method="POST" class="form-horizontal">
-          <input type="hidden" name="_csrf" />
+          <input type="hidden" name="_csrf" value=_csrf/>
           <div class="form-group">
             <label for="old-password" class="col-sm-3 control-label">Old Password</label>
             <div class="col-sm-7">
@@ -94,36 +94,50 @@
       <div class="page-header mt30 pbn">
         <h4>Delete Account</h4>
       </div>
-      <form action="/account/delete" method="POST" class="form-horizontal">
+      <div class="form-horizontal">
         <div class="form-group">
           <p class="col-sm-offset-3 col-sm-8">You can delete your account, but keep in mind this action is irreversible.</p>
-          <input type="hidden" name="_csrf" />
           <div class="col-sm-offset-3 col-sm-4">
-            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp
+            <button class="btn btn-danger" id="delete-account-btn"><i class="fa fa-trash"></i>&nbsp
               Delete my account
             </button>
           </div>
         </div>
-      </form>
+        <form id="delete-account-form" action="/account/delete" method="POST">
+          <input type="hidden" name="_csrf" value=_csrf />
+        </form>
+      </div>
       <div class="page-header mt30 pbn">
         <h4>Linked Accounts</h4>
       </div>
-      <form class="form-horizontal">
+      <div class="form-horizontal">
         <div class="form-group">
+          <input type="hidden" name="_csrf" value=_csrf />
           <div class="col-sm-offset-3 col-sm-4">
             {% if user.github %}
-              <p><a href="/account/unlink/github">Unlink your GitHub account</a></p>
+              <a href="/account/unlink/github" class="btn btn-default" id="link-github"><i class="fa fa-github mr10"></i>Unlink GitHub account</a>
             {% else %}
-              <p><a href="/auth/github">Link your GitHub account</a></p>
+              <a href="/auth/github" class="btn btn-default" id="link-github"><i class="fa fa-github mr10"></i>Link GitHub account</a>
             {% endif %}
           </div>
         </div>
-      </form>
-
-
+      </div>
   </div>
 
   {% include "../partials/footer.html" %}
 
-{% endblock %}
+  <script>
+    $('#delete-account-btn').on('click', function() {
+      notie.confirm('Are you sure you want to delete you account?', 'Yes', 'Cancel', function() {
+        $('#delete-account-form').submit()
+      })
+    })
 
+    $('#delete-account-btn').on('click', function() {
+      notie.confirm('Are you sure you want to delete you account?', 'Yes', 'Cancel', function() {
+        $('#delete-account-form').submit()
+      })
+    })
+  </script>
+
+{% endblock %}

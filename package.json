@@ -10,7 +10,8 @@
     "url": "https://github.com/lsdlab/hackathon-starter-cn"
   },
   "scripts": {
-    "start": "supervisor app.js"
+    "start": "supervisor app.js",
+    "dev": "nodejs-dashboard node app.js"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -28,7 +29,6 @@
     "express-validator": "^2.20.10",
     "lodash": "^4.16.3",
     "lusca": "^1.4.1",
-    "mailgen": "^2.0.0",
     "marked": "^0.3.6",
     "mongoose": "^4.6.1",
     "morgan": "^1.7.0",
@@ -44,13 +44,15 @@
     "request": "^2.75.0",
     "sendgrid": "^4.4.1",
     "serve-favicon": "~2.3.0",
+    "shortid": "^2.2.6",
     "swig": "^1.4.2",
     "underscore": "^1.8.3",
     "validator": "^6.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.1.0",
+    "mocha": "^3.1.2",
+    "nodejs-dashboard": "^0.1.1",
     "supertest": "^2.0.0"
   }
 }

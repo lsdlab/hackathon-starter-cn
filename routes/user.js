@@ -12,12 +12,10 @@ const passportConfig = require('../passport/passport')
  */
 router.get('/signup', function(req, res) {
   if (req.user) {
-    req.flash('success', { msg: 'Signup successed' })
+    req.flash('success', { msg: 'Signup successed!' })
     return res.redirect('/')
   }
-  res.render('user/signup', {
-    title: 'signup'
-  })
+  res.render('user/signup')
 })
 
 
@@ -55,7 +53,6 @@ router.post('/signup', function(req, res, next) {
         if (err) {
           return next(err)
         }
-        req.flash('success', { msg: 'Create account successed!' })
         return res.redirect('/signup')
       })
     })
@@ -71,9 +68,7 @@ router.get('/login', function(req, res) {
   if (req.user) {
     return res.redirect('/')
   }
-  res.render('user/login', {
-    title: 'login'
-  })
+  res.render('user/login')
 })
 
 
@@ -97,7 +92,7 @@ router.post('/login', function(req, res, next) {
       return next(err)
     }
     if (!user) {
-      req.flash('errors', { msg: info.message })
+      req.flash('errors', { msg: info.msg })
       return res.redirect('/login')
     }
     req.logIn(user, function(err) {
@@ -163,28 +158,38 @@ router.post('/account/profile', passportConfig.isAuthenticated, function(req, re
  * Update current password.
  */
 router.post('/account/password', passportConfig.isAuthenticated, function(req, res, next) {
-  req.assert('password', 'Password must be at least 8 characters long').len(8)
-  req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password)
-
-  var errors = req.validationErrors()
-
-  if (errors) {
-    req.flash('errors', errors)
-    return res.redirect('/account')
-  }
-
   User.findById(req.user.id, function(err, user) {
     if (err) {
       return next(err)
     }
 
-    user.password = req.body.password
-    user.save(function(err) {
+    user.comparePassword(req.body['old-password'], (err, isMatch) => {
       if (err) {
         return next(err)
       }
-      req.flash('success', { msg: 'Password has been changed.' })
-      res.redirect('/account')
+      if (isMatch === true) {
+        req.assert('password', 'Password must be at least 8 characters long').len(8)
+        req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password)
+
+        var errors = req.validationErrors()
+
+        if (errors) {
+          req.flash('errors', errors)
+          return res.redirect('/account')
+        }
+
+        user.password = req.body.password
+        user.save(function(err) {
+          if (err) {
+            return next(err)
+          }
+          req.flash('success', { msg: 'Password has been changed.' })
+          res.redirect('/account')
+        })
+      } else {
+        req.flash('errors', { msg: 'Invalid old password.' })
+        return res.redirect('/account')
+      }
     })
   })
 })
@@ -205,8 +210,13 @@ router.post('/account/delete', passportConfig.isAuthenticated, function(req, res
   })
 })
 
+
+/**
+ * GET /account/unlink/:provider
+ * Unlink third party account.
+ */
 router.get('/account/unlink/:provider', passportConfig.isAuthenticated, function(req, res, next) {
-  const provider = req.params.provider;
+  const provider = req.params.provider
   User.findById(req.user.id, (err, user) => {
     if (err) {
       return next(err)

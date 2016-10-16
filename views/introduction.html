@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  Introduction
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="css/yue.css">
+{% endblock %}
+
+{% block content %}
+  {% include "partials/navbar.html" %}
+  <article class="markdown-body yue" style="margin-bottom: 100px">
+    {% autoescape false %}
+      {{ markdownContent }}
+    {% endautoescape %}
+  </article>
+  {% include "partials/footer.html" %}
+{% endblock %}
