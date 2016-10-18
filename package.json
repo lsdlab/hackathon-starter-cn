@@ -27,10 +27,11 @@
     "express-session": "^1.14.1",
     "express-status-monitor": "^0.1.4",
     "express-validator": "^2.20.10",
+    "kue": "^0.11.1",
     "lodash": "^4.16.3",
     "lusca": "^1.4.1",
     "marked": "^0.3.6",
-    "mongoose": "^4.6.1",
+    "mongoose": "^4.6.4",
     "morgan": "^1.7.0",
     "multer": "^1.2.0",
     "node-uuid": "^1.4.7",
@@ -42,12 +43,12 @@
     "postmark": "^1.2.1",
     "q": "^1.4.1",
     "request": "^2.75.0",
-    "sendgrid": "^4.4.1",
+    "sendgrid": "^4.7.0",
     "serve-favicon": "~2.3.0",
     "shortid": "^2.2.6",
     "swig": "^1.4.2",
     "underscore": "^1.8.3",
-    "validator": "^6.0.0"
+    "validator": "^6.1.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
