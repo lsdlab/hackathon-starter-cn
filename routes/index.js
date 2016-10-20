@@ -25,7 +25,7 @@ router.get('/about', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('about', { markdownContent: markdownContent })
+    res.render('about', { markdownContent: markdownContent, title: 'about' })
   })
 })
 
@@ -36,7 +36,7 @@ router.get('/introduction', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('introduction', { markdownContent: markdownContent })
+    res.render('introduction', { markdownContent: markdownContent, title: 'introduction' })
   })
 })
 
@@ -47,7 +47,7 @@ router.get('/scaffold', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('scaffold', { markdownContent: markdownContent })
+    res.render('scaffold', { markdownContent: markdownContent, title: 'introduction' })
   })
 })
 
@@ -59,7 +59,7 @@ router.get('/api', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('api', { markdownContent: markdownContent })
+    res.render('api', { markdownContent: markdownContent, title: 'introduction' })
   })
 })
 
@@ -71,7 +71,7 @@ router.get('/postmark', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('postmark', { markdownContent: markdownContent })
+    res.render('postmark', { markdownContent: markdownContent, title: 'introduction' })
   })
 })
 
@@ -83,7 +83,7 @@ router.get('/sendgrid', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('sendgrid', { markdownContent: markdownContent })
+    res.render('sendgrid', { markdownContent: markdownContent, title: 'introduction' })
   })
 })
 
@@ -95,7 +95,7 @@ router.get('/nodemailer', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('nodemailer', { markdownContent: markdownContent })
+    res.render('nodemailer', { markdownContent: markdownContent, title: 'introduction' })
   })
 })
 

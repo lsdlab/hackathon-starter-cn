@@ -14,7 +14,7 @@ var userSchema = new mongoose.Schema({
   passwordResetExpires: Date,
   accountStatus: {
     type: String,
-    default: '0'
+    default: ''
   },
 
   github: String,
@@ -86,6 +86,7 @@ userSchema.methods.comparePassword = function (candidatePassword, cb) {
     cb(err, isMatch)
   })
 }
+
 
 /**
  * Helper method for getting user's gravatar.

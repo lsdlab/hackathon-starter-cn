@@ -16,7 +16,7 @@
     <div class="collapse navbar-collapse" id="navbar-collapse-01">
       <ul class="nav navbar-nav navbar-left">
         <li {% if title=='index' %} class="active" {% endif %}><a href="/">Index</a></li>
-        <li>
+        <li {% if title=='introduction' %} class="active" {% endif %}>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction<b class="caret"></b></a>
           <span class="dropdown-arrow"></span>
           <ul class="dropdown-menu">
@@ -34,7 +34,7 @@
       </ul>
       {% if user %}
         <ul class="nav navbar-nav navbar-right">
-          <li>
+          <li {% if title=='profile' %} class="active" {% endif %}>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ user.profile.name || user.email }}<b class="caret"></b></a>
             <span class="dropdown-arrow"></span>
             <ul class="dropdown-menu">

@@ -1,9 +1,16 @@
 const express = require('express')
 const router = express.Router()
-
-const User = require('../models/user')
 const passport = require('passport')
+const shortid = require('shortid')
+const User = require('../models/user')
 const passportConfig = require('../passport/passport')
+
+const dotenv = require('dotenv')
+dotenv.load({
+  path: '.env.development'
+})
+
+const postmark = require('../email_utils/postmark')
 
 
 /**
@@ -37,25 +44,62 @@ router.post('/signup', function(req, res, next) {
 
   var user = new User({
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    accountStatus: 'verifying',
+    quickLoginToken: shortid.generate()
   })
 
   User.findOne({ email: req.body.email }, function(err, existingUser) {
     if (existingUser) {
       req.flash('errors', { msg: 'Account with that email address already exists.' })
-      return res.redirect('/signup')
+      var string = encodeURIComponent('verifying')
+      return res.redirect('/verifying?valid=' + string)
     }
+
     user.save(function(err) {
       if (err) {
         return next(err)
       }
-      req.logIn(user, function(err) {
+      postmark.sendConfirmEmail(req.body.email, req.body.email, req.body.email,
+        req.headers.host + '/verifybyemail/' + user.quickLoginToken)
+      var string = encodeURIComponent('verifying')
+      return res.redirect('/verifying?valid=' + string)
+    })
+  })
+})
+
+
+/**
+ * GET /verifying
+ * Verifying page.
+ */
+router.get('/verifying', function(req, res) {
+  var passedVariable = req.query.valid
+  if (passedVariable == 'verifying') {
+    res.render('user/verifying')
+  } else {
+    return res.redirect('/signup')
+  }
+})
+
+
+/**
+ * GET /verifybyemail
+ * Verify by email page.
+ */
+router.get('/verifybyemail', function(req, res, next) {
+  User.findOne({quickLoginToken: req.params.shortid}, function(err, existingUser) {
+    if (existingUser) {
+      req.logIn(existingUser, function(err) {
         if (err) {
           return next(err)
         }
         return res.redirect('/signup')
       })
-    })
+    } else {
+      req.flash('errors', err)
+      return res.redirect('/signup')
+    }
   })
 })
 
@@ -124,7 +168,7 @@ router.get('/account', passportConfig.isAuthenticated, function(req, res) {
   if (!req.user) {
     return res.redirect('/login')
   }
-  res.render('user/profile')
+  res.render('user/profile', {title: 'profile'})
 })
 
 
