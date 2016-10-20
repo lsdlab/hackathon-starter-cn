@@ -19,7 +19,7 @@ const postmark = require('../email_utils/postmark')
  */
 router.get('/signup', function(req, res) {
   if (req.user) {
-    req.flash('success', { msg: 'Signup successed!' })
+    req.flash('success', { msg: '注册成功' })
     return res.redirect('/')
   }
   res.render('user/signup')
@@ -51,7 +51,7 @@ router.post('/signup', function(req, res, next) {
 
   User.findOne({ email: req.body.email }, function(err, existingUser) {
     if (existingUser) {
-      req.flash('errors', { msg: 'Account with that email address already exists.' })
+      req.flash('errors', { msg: '此邮箱已经存在，请直接登录' })
       var string = encodeURIComponent('verifying')
       return res.redirect('/verifying?valid=' + string)
     }
@@ -60,10 +60,11 @@ router.post('/signup', function(req, res, next) {
       if (err) {
         return next(err)
       }
-      postmark.sendConfirmEmail(req.body.email, req.body.email, req.body.email,
-        req.headers.host + '/verifybyemail/' + user.quickLoginToken)
+      // postmark.sendConfirmEmail(req.body.email, req.body.email, req.body.email,
+      //   req.headers.host + '/verifybyemail/' + user.quickLoginToken)
       var string = encodeURIComponent('verifying')
-      return res.redirect('/verifying?valid=' + string)
+      var quicklogintoken = encodeURIComponent(user.quickLoginToken)
+      return res.redirect('/verifying?valid=' + string + '&quicklogintoken=' + quicklogintoken)
     })
   })
 })
@@ -75,8 +76,9 @@ router.post('/signup', function(req, res, next) {
  */
 router.get('/verifying', function(req, res) {
   var passedVariable = req.query.valid
+  var quicklogintoken = req.query.quicklogintoken
   if (passedVariable == 'verifying') {
-    res.render('user/verifying')
+    res.render('user/verifying', { quicklogintoken: quicklogintoken })
   } else {
     return res.redirect('/signup')
   }
@@ -87,8 +89,8 @@ router.get('/verifying', function(req, res) {
  * GET /verifybyemail
  * Verify by email page.
  */
-router.get('/verifybyemail', function(req, res, next) {
-  User.findOne({quickLoginToken: req.params.shortid}, function(err, existingUser) {
+router.get('/verifybyemail/:quicklogintoken', function(req, res, next) {
+  User.findOne({ quickLoginToken: req.params.quicklogintoken }, function(err, existingUser) {
     if (existingUser) {
       req.logIn(existingUser, function(err) {
         if (err) {
@@ -143,7 +145,7 @@ router.post('/login', function(req, res, next) {
       if (err) {
         return next(err)
       }
-      req.flash('success', { msg: 'Login successed!' })
+      req.flash('success', { msg: '登录成功' })
       return res.redirect(req.session.returnTo || '/')
     })
   })(req, res, next)
@@ -168,7 +170,7 @@ router.get('/account', passportConfig.isAuthenticated, function(req, res) {
   if (!req.user) {
     return res.redirect('/login')
   }
-  res.render('user/profile', {title: 'profile'})
+  res.render('user/profile', { title: 'profile' })
 })
 
 
@@ -190,7 +192,7 @@ router.post('/account/profile', passportConfig.isAuthenticated, function(req, re
       if (err) {
         return next(err)
       }
-      req.flash('success', { msg: 'Profile information has been updated.' })
+      req.flash('success', { msg: '个人信息已更新' })
       return res.redirect('/account')
     })
   })
@@ -227,11 +229,11 @@ router.post('/account/password', passportConfig.isAuthenticated, function(req, r
           if (err) {
             return next(err)
           }
-          req.flash('success', { msg: 'Password has been changed.' })
+          req.flash('success', { msg: '密码已更改' })
           res.redirect('/account')
         })
       } else {
-        req.flash('errors', { msg: 'Invalid old password.' })
+        req.flash('errors', { msg: '旧密码错误' })
         return res.redirect('/account')
       }
     })
@@ -249,7 +251,7 @@ router.post('/account/delete', passportConfig.isAuthenticated, function(req, res
       return next(err)
     }
     req.logout()
-    req.flash('info', { msg: 'Your account has been deleted.' })
+    req.flash('info', { msg: '账户已被删除' })
     return res.redirect('/')
   })
 })
@@ -274,7 +276,7 @@ router.get('/account/unlink/:provider', passportConfig.isAuthenticated, function
       if (provider == 'github') {
         var provider_name = 'GitHub'
       }
-      req.flash('info', { msg: `${provider_name} account has been unlinked.` })
+      req.flash('info', { msg: `${provider_name} 已被断开连接` })
       return res.redirect('/account')
     })
   })

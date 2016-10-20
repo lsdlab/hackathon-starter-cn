@@ -57,7 +57,7 @@ passport.use(new GitHubStrategy({
   if (req.user) {
     User.findOne({ github: profile.id }, (err, existingUser) => {
       if (existingUser) {
-        req.flash('errors', { msg: 'There is already a GitHub account that belongs to you. Sign in with that account or delete it, then link it with your current account.' })
+        req.flash('errors', { msg: '已有账户此 GitHub 账户连接，请重新更换 GitHub 账户连接' })
         done(err)
       } else {
         User.findById(req.user.id, (err, user) => {
@@ -74,7 +74,7 @@ passport.use(new GitHubStrategy({
           user.provider = 'github'
           user.provider_username = profile._json.location || ''
           user.save((err) => {
-            req.flash('info', { msg: 'GitHub account has been linked.' })
+            req.flash('info', { msg: 'GitHub 账户已被连接' })
             done(err, user)
           })
         })
@@ -86,7 +86,7 @@ passport.use(new GitHubStrategy({
         return done(err)
       }
       if (existingUser) {
-        req.flash('success', { msg: 'Login successed!' })
+        req.flash('success', { msg: '登录成功' })
         return done(null, existingUser)
       } else {
         const user = new User()
@@ -102,7 +102,7 @@ passport.use(new GitHubStrategy({
         user.provider = 'github'
         user.provider_username = profile._json.location || ''
         user.save((err) => {
-          req.flash('info', { msg: 'GitHub account has been linked.' })
+          req.flash('info', { msg: 'GitHub 账户已被连接' })
           done(err, user)
         })
       }

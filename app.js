@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require('path')
-var favicon = require('serve-favicon')
+const favicon = require('serve-favicon')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
@@ -11,13 +11,11 @@ const userRouter = require('./routes/user')
 // dependencies
 const dotenv = require('dotenv')
 const chalk = require('chalk')
-
 const expressValidator = require('express-validator')
 const mongoose = require('mongoose')
 const session = require('express-session')
 const MongoStore = require('connect-mongo/es5')(session)
 const lusca = require('lusca')
-
 const flash = require('express-flash')
 const passport = require('passport')
 const multer = require('multer')
@@ -82,7 +80,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }))
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
+app.use(express.static(path.join(__dirname, 'public')))
 
 
 app.use(expressValidator())
@@ -108,14 +106,9 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(function(req, res, next) {
   res.locals.user = req.user
+  app.locals._ = require('underscore')
   next()
 })
-app.use(function(req, res, next) {
-  res.locals.user = req.user
-  next()
-})
-
-app.locals._ = require('underscore')
 
 app.use(function(req, res, next) {
   // After successful login, redirect back to the intended page

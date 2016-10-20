@@ -15,9 +15,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="navbar-collapse-01">
       <ul class="nav navbar-nav navbar-left">
-        <li {% if title=='index' %} class="active" {% endif %}><a href="/">Index</a></li>
+        <li {% if title=='index' %} class="active" {% endif %}><a href="/">首页</a></li>
         <li {% if title=='introduction' %} class="active" {% endif %}>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction<b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">介绍<b class="caret"></b></a>
           <span class="dropdown-arrow"></span>
           <ul class="dropdown-menu">
             <li><a href="/introduction">介绍</a></li>
@@ -29,7 +29,7 @@
             <li><a href="/sendgrid">SendGrid</a></li>
             <li><a href="/nodemailer">Nodemailer</a></li>
           </ul>
-          <li {% if title=='about' %} class="active" {% endif %}><a href="/about">About</a></li>
+          <li {% if title=='about' %} class="active" {% endif %}><a href="/about">关于</a></li>
         </li>
       </ul>
       {% if user %}
@@ -38,9 +38,9 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ user.profile.name || user.email }}<b class="caret"></b></a>
             <span class="dropdown-arrow"></span>
             <ul class="dropdown-menu">
-              <li><a href="/account">My Account</a></li>
+              <li><a href="/account">我的账户</a></li>
               <li class="divider"></li>
-              <li><a href="/logout">Log Out</a></li>
+              <li><a href="/logout">登出</a></li>
             </ul>
           </li>
         </ul>
