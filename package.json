@@ -24,6 +24,7 @@
     "express": "^4.14.0",
     "express-flash": "0.0.2",
     "express-jwt": "^5.1.0",
+    "express-limiter": "^1.6.0",
     "express-session": "^1.14.1",
     "express-status-monitor": "^0.1.4",
     "express-validator": "^2.20.10",
