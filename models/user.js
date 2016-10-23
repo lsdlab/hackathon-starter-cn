@@ -17,6 +17,9 @@ var userSchema = new mongoose.Schema({
     default: ''
   },
 
+  client_id: String,
+  client_secret: String,
+
   github: String,
   tokens: Array,
 

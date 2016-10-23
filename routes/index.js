@@ -9,7 +9,7 @@ const marked = require('marked')
  * Index page.
  */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'index' })
+  res.render('index')
 })
 
 /* GET 404 page. */
@@ -25,7 +25,7 @@ router.get('/about', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('about', { markdownContent: markdownContent, title: 'about' })
+    res.render('about', { markdownContent: markdownContent })
   })
 })
 
@@ -36,7 +36,7 @@ router.get('/introduction', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('introduction', { markdownContent: markdownContent, title: 'introduction' })
+    res.render('introduction', { markdownContent: markdownContent })
   })
 })
 
@@ -47,7 +47,7 @@ router.get('/scaffold', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('scaffold', { markdownContent: markdownContent, title: 'introduction' })
+    res.render('scaffold', { markdownContent: markdownContent })
   })
 })
 
@@ -59,7 +59,7 @@ router.get('/api', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('api', { markdownContent: markdownContent, title: 'introduction' })
+    res.render('api', { markdownContent: markdownContent })
   })
 })
 
@@ -71,7 +71,7 @@ router.get('/postmark', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('postmark', { markdownContent: markdownContent, title: 'introduction' })
+    res.render('postmark', { markdownContent: markdownContent })
   })
 })
 
@@ -83,19 +83,7 @@ router.get('/sendgrid', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('sendgrid', { markdownContent: markdownContent, title: 'introduction' })
-  })
-})
-
-
-router.get('/nodemailer', function(req, res) {
-  var path = __dirname.slice(0, -7) + '/views/markdown/nodemailer.md'
-  fs.readFile(path, 'utf8', function(err, data) {
-    if(err) {
-      console.log(err)
-    }
-    var markdownContent = marked(data)
-    res.render('nodemailer', { markdownContent: markdownContent, title: 'introduction' })
+    res.render('sendgrid', { markdownContent: markdownContent })
   })
 })
 

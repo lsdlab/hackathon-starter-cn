@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 
 const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
+const apiRouter = require('./routes/api')
 
 // dependencies
 const dotenv = require('dotenv')
@@ -89,10 +90,7 @@ app.use(session({
   saveUninitialized: true,
   resave: true,
   store: new MongoStore({
-    url: process.env.MONGODB_URI,
-    ttl: 7 * 24 * 60 * 60,
-    autoReconnect: true,
-    autoRemove: 'native'
+    url: process.env.MONGODB_URI
   })
 }))
 
@@ -128,6 +126,7 @@ app.post('/profile/upload', upload.single('avatar'), function(req, res, next) {
 
 app.use('/', indexRouter)
 app.use('/', userRouter)
+app.use('/api', apiRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -10,7 +10,7 @@ dotenv.load({
   path: '.env.development'
 })
 
-const postmark = require('../email_utils/postmark')
+const postmark = require('./postmark')
 
 
 /**
@@ -60,8 +60,11 @@ router.post('/signup', function(req, res, next) {
       if (err) {
         return next(err)
       }
-      // postmark.sendConfirmEmail(req.body.email, req.body.email, req.body.email,
-      //   req.headers.host + '/verifybyemail/' + user.quickLoginToken)
+
+      postmark.sendConfirmEmail(req.body.email, req.body.email, req.body.email,
+        'http://' + req.headers.host + '/verifybyemail/' + user.quickLoginToken)
+
+
       var string = encodeURIComponent('verifying')
       var quicklogintoken = encodeURIComponent(user.quickLoginToken)
       return res.redirect('/verifying?valid=' + string + '&quicklogintoken=' + quicklogintoken)
