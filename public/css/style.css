@@ -5,6 +5,7 @@ html {
 
 body {
   padding-top: 50px;
+  font-family: "PingFang SC","Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 
 .footer {
@@ -55,6 +56,10 @@ body {
   margin-bottom: 0px !important;
   border-bottom-right-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
+}
+
+.form-signin-heading-inline {
+  display: inline;
 }
 
 .centerh {
