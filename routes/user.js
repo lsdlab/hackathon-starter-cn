@@ -61,13 +61,20 @@ router.post('/signup', function(req, res, next) {
         return next(err)
       }
 
-      postmark.sendConfirmEmail(req.body.email, req.body.email, req.body.email,
-        'http://' + req.headers.host + '/verifybyemail/' + user.quickLoginToken)
-
-
-      var string = encodeURIComponent('verifying')
-      var quicklogintoken = encodeURIComponent(user.quickLoginToken)
-      return res.redirect('/verifying?valid=' + string + '&quicklogintoken=' + quicklogintoken)
+      var target_email = req.body.email
+      var name = req.body.email
+      var username = req.body.email
+      var action_url = 'http://' + req.headers.host + '/verifybyemail/' + user.quickLoginToken
+      postmark.sendConfirmEmail(target_email, name, username, action_url).then(function(error) {
+        if (error) {
+          req.flash('errors', { msg: '确认邮件发送失败，请稍后重试' })
+          return res.redirect('/signup')
+        } else {
+          var string = encodeURIComponent('verifying')
+          var quicklogintoken = encodeURIComponent(user.quickLoginToken)
+          return res.redirect('/verifying?valid=' + string + '&quicklogintoken=' + quicklogintoken)
+        }
+      })
     })
   })
 })
@@ -297,6 +304,61 @@ router.get('/auth/github', passport.authenticate('github', { scope: 'profile ema
  */
 router.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function(req, res) {
   return res.redirect(req.session.returnTo || '/')
+})
+
+
+/**
+ * GET /forgotpassword
+ * Forgot password page.
+ */
+router.get('/forgotpassword', function(req, res) {
+  res.render('user/forgotpassword.html')
+})
+
+
+/**
+ * PSOT /forgotpassword
+ * send email for get password back
+ */
+router.get('/forgotpassword', function(req, res) {
+  req.assert('email', 'Email is not valid.').isEmail()
+
+  var errors = req.validationErrors()
+
+  if (errors) {
+    req.flash('errors', errors)
+    return res.redirect('/forgotpassword')
+  }
+
+  User.findOne({ email: req.body.email }, function(err, existingUser) {
+    if (existingUser) {
+
+      postmark.sendConfirmEmail(req.body.email, req.body.email, req.body.email,
+        'http://' + req.headers.host + '/resetpasswordbyemail/' + existingUser.quickLoginToken)
+
+      req.flash('success', { msg: '邮件发送成功，请检查收件箱' })
+      return res.redirect('/forgotpassword')
+    } else {
+      req.flash('errors', err)
+      return res.redirect('/forgotpassword')
+    }
+  })
+})
+
+
+/**
+ * GET /resetpasswordbyemail
+ * Reset password by email page.
+ */
+router.get('/resetpasswordbyemail/:quicklogintoken', function(req, res, next) {
+  User.findOne({ quickLoginToken: req.params.quicklogintoken }, function(err, existingUser) {
+    if (existingUser) {
+      res.render('user/forgotpassword.html')
+    } else {
+      req.flash('errors', err)
+      return res.redirect('/forgotpassword')
+    }
+  })
 })
 
 

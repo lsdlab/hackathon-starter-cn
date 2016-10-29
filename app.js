@@ -4,6 +4,8 @@ const favicon = require('serve-favicon')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
+const nunjucks = require('nunjucks')
+
 
 const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
@@ -43,32 +45,22 @@ mongoose.connection.on('error', () => {
   process.exit()
 })
 
-var app = express()
 
 /**
  * Express configuration.
  */
+var app = express()
 app.set('port', process.env.PORT || 3000)
-  // swig template engine setup
-var swig = require('swig')
-  // This is where all the magic happens!
-app.engine('html', swig.renderFile)
 
-app.set('view engine', 'html')
-app.set('views', path.join(__dirname, '/views'))
-
-// Swig will cache templates for you, but you can disable
-// that and use Express's caching instead, if you like:
-app.set('view cache', false)
-  // To disable Swig's cache, do the following:
-swig.setDefaults({
-  cache: false
+// nunjucks template settings
+nunjucks.configure(path.join(__dirname, 'views'), {
+  autoescape: true,
+  watch: true,
+  noCache: true,
+  express: app
 })
-// NOTE: You should always cache templates in a production environment.
-// Don't leave both of these to `false` in production!
+app.set('view engine', 'html')
 
-// express status monitor
-app.use(require('express-status-monitor')())
 
 // nodejs-dashboard
 require('nodejs-dashboard')

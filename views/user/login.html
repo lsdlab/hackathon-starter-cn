@@ -16,14 +16,18 @@
     <form class="form-signin" action="/login" method="POST">
       <input type="hidden" name="_csrf" value=_csrf />
       <h4 class="form-signin-heading">登录</h4>
-      <label for="inputUsername" class="sr-only">邮箱（必须）</label>
-      <input type="email" id="inputEmail" name="email" placeholder="邮箱（必须）" required="true" autofocus="true" class="form-control"/>
-      <label for="inputPassword" class="sr-only">密码（必须）</label>
-      <input type="password" id="inputPassword" name="password" placeholder="密码（必须）" required="required" class="form-control"/>
+      <label for="inputUsername" class="sr-only">邮箱(必填)</label>
+      <input type="email" id="inputEmail" name="email" placeholder="邮箱(必填)" required="true" autofocus="true" class="form-control" />
+      <label for="inputPassword" class="sr-only">密码(必填)</label>
+      <input type="password" id="inputPassword" name="password" placeholder="密码(必填)" required="required" class="form-control" />
       <button type="submit" class="btn btn-lg btn-primary btn-block"><span class="fa fa-sign-in mr10"></span>登录</button>
     </form>
 
-    <div class="form-signin mt20">
+    <div class="form-signin">
+      <a href="/forgotpassword" style="text-decoration: none"><h5>忘记密码？</h5></a>
+    </div>
+
+    <div class="form-signin">
       <h4 class="form-signin-heading-inline">第三方登录: </h4>
       <a href="/auth/github" class="ml10"><span class="fa fa-github fa-lg manual-tooltip" data-toggle="tooltip" data-placement="bottom" title="Sign in with GitHub"></span></a>
     </div>
@@ -33,8 +37,8 @@
 
 {% endblock %}
 
-{% block page-js %}
-  <script>
-    $('.manual-tooltip').tooltip()
-  </script>
+{% block pagejs %}
+<script>
+$('.manual-tooltip').tooltip()
+</script>
 {% endblock %}

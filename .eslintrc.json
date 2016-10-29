@@ -27,5 +27,10 @@
             "never"
         ],
         "no-console": "off"
+    },
+    "globals": {
+        "$": true,
+        "notie": true,
+        "NProgress": true
     }
 }

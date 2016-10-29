@@ -15,12 +15,12 @@
     <form class="form-signin" action="/signup" method="POST">
       <input type="hidden" name="_csrf" value=_csrf />
       <h4 class="form-signin-heading">注册</h4>
-      <label for="inputEmail" class="sr-only">邮箱（必须）</label>
-      <input type="email" id="email" name="email" placeholder="邮箱（必须）" required="true" autofocus="true" class="form-control" />
-      <label for="inputPassword" class="sr-only">密码（必须）</label>
-      <input type="password" id="inputPassword" name="password" placeholder="密码（必须）" required="true" style="border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; margin-top: -2px; margin-bottom: 0px" class="form-control" />
-      <label for="inputconfirmPassword" class="sr-only">确认密码（必须）</label>
-      <input type="password" id="inputconfirmPassword" name="confirmPassword" placeholder="确认密码（必须）" required="true" style="border-top-right-radius: 0px; border-top-left-radius: 0px; margin-top: -2px" class="form-control" />
+      <label for="inputEmail" class="sr-only">邮箱(必填)</label>
+      <input type="email" id="email" name="email" placeholder="邮箱(必填)" required="true" autofocus="true" class="form-control" />
+      <label for="inputPassword" class="sr-only">密码(必填)</label>
+      <input type="password" id="inputPassword" name="password" placeholder="密码(必填)" required="true" style="border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; margin-top: -2px; margin-bottom: 0px" class="form-control" />
+      <label for="inputconfirmPassword" class="sr-only">确认密码(必填)</label>
+      <input type="password" id="inputconfirmPassword" name="confirmPassword" placeholder="确认密码(必填)" required="true" style="border-top-right-radius: 0px; border-top-left-radius: 0px; margin-top: -2px" class="form-control" />
       <button type="submit" class="btn btn-lg btn-primary btn-block"><span class="fa fa-user-plus mr10"></span>注册</button>
     </form>
     <div class="form-signin mt20">
@@ -33,7 +33,7 @@
 
 {% endblock %}
 
-{% block page-js %}
+{% block pagejs %}
   <script>
     $('.manual-tooltip').tooltip()
   </script>

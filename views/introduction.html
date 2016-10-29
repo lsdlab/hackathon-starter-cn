@@ -11,9 +11,7 @@
 {% block content %}
   {% include "partials/navbar.html" %}
   <article class="markdown-body yue" style="margin-bottom: 100px">
-    {% autoescape false %}
-      {{ markdownContent }}
-    {% endautoescape %}
+    {{ markdownContent | safe }}
   </article>
   {% include "partials/footer.html" %}
 {% endblock %}

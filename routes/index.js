@@ -9,12 +9,12 @@ const marked = require('marked')
  * Index page.
  */
 router.get('/', function(req, res) {
-  res.render('index')
+  res.render('index.html')
 })
 
 /* GET 404 page. */
 router.get('/404', function(req, res) {
-  res.render('404')
+  res.render('404.html')
 })
 
 
@@ -64,26 +64,14 @@ router.get('/api', function(req, res) {
 })
 
 
-router.get('/postmark', function(req, res) {
-  var path = __dirname.slice(0, -7) + '/views/markdown/postmark.md'
+router.get('/email', function(req, res) {
+  var path = __dirname.slice(0, -7) + '/views/markdown/email.md'
   fs.readFile(path, 'utf8', function(err, data) {
     if(err) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('postmark', { markdownContent: markdownContent })
-  })
-})
-
-
-router.get('/sendgrid', function(req, res) {
-  var path = __dirname.slice(0, -7) + '/views/markdown/sendgrid.md'
-  fs.readFile(path, 'utf8', function(err, data) {
-    if(err) {
-      console.log(err)
-    }
-    var markdownContent = marked(data)
-    res.render('sendgrid', { markdownContent: markdownContent })
+    res.render('email', { markdownContent: markdownContent })
   })
 })
 

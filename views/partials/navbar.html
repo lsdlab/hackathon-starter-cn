@@ -23,31 +23,29 @@
             <li><a href="/introduction">介绍</a></li>
             <li class="divider"></li>
             <li><a href="/scaffold">脚手架</a></li>
-            <li><a href="/api">API 示例</a></li>
-            <li class="divider"></li>
-            <li><a href="/postmark">Postmark</a></li>
-            <li><a href="/sendgrid">SendGrid</a></li>
+            <li><a href="/api">API</a></li>
+            <li><a href="/email">邮件 API</a></li>
           </ul>
           <li><a href="/about">关于</a></li>
         </li>
       </ul>
       {% if user %}
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ user.profile.name || user.email }}<b class="caret"></b></a>
-            <span class="dropdown-arrow"></span>
-            <ul class="dropdown-menu">
-              <li><a href="/account">我的账户</a></li>
-              <li class="divider"></li>
-              <li><a href="/logout">登出</a></li>
-            </ul>
-          </li>
-        </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% if user.profile.name %} {{ user.profile.name }} {% else %} {{ user.email }} {% endif %}<b class="caret"></b></a>
+          <span class="dropdown-arrow"></span>
+          <ul class="dropdown-menu">
+            <li><a href="/account">我的账户</a></li>
+            <li class="divider"></li>
+            <li><a href="/logout">登出</a></li>
+          </ul>
+        </li>
+      </ul>
       {% else %}
-        <ul class="nav navbar-nav navbar-right ml5 mr5">
-          <a href="/login" class="btn btn-primary navbar-btn btn-sm mr5"><span class="fa fa-sign-in mr5"></span>登录</a>
-          <a href="/signup" class="btn btn-primary navbar-btn btn-sm"><span class="fa fa-user-plus mr5"></span>注册</a>
-        </ul>
+      <ul class="nav navbar-nav navbar-right ml5 mr5">
+        <a href="/login" class="btn btn-primary navbar-btn btn-sm mr5"><span class="fa fa-sign-in mr5"></span>登录</a>
+        <a href="/signup" class="btn btn-primary navbar-btn btn-sm"><span class="fa fa-user-plus mr5"></span>注册</a>
+      </ul>
       {% endif %}
     </div>
     <!-- /.navbar-collapse -->
