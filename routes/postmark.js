@@ -8,7 +8,7 @@ const postmark = require('postmark')
 const client = new postmark.Client(process.env.POSTMARK_API_ID)
 
 function sendConfirmEmail(target_email, name, username, action_url) {
-  var sendConfirmEmailDefer = Q.getDeefer()
+  var sendConfirmEmailDefer = Q.defer()
 
   client.sendEmailWithTemplate({
     'From': 'lab@breakwire.me',

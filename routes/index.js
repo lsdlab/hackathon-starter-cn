@@ -9,12 +9,12 @@ const marked = require('marked')
  * Index page.
  */
 router.get('/', function(req, res) {
-  res.render('index.html')
+  res.render('index')
 })
 
 /* GET 404 page. */
 router.get('/404', function(req, res) {
-  res.render('404.html')
+  res.render('404')
 })
 
 

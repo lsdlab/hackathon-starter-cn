@@ -10,6 +10,7 @@ var userSchema = new mongoose.Schema({
   },
   password: String,
   quickLoginToken: String,
+  quickLoginTokenExpires: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
   accountStatus: {

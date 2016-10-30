@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Welcome to [Product Name], {{name}}!</title>
+    <title>Welcome to {{ product_name }}, {{ name }}!</title>
     <!--
     The style block is collapsed on page load to save you some scrolling.
     Postmark automatically inlines all CSS properties for maximum email client
@@ -380,16 +380,16 @@
     </style>
   </head>
   <body>
-    <span class="preheader">Thanks for trying out [Product Name]. We’ve pulled together some information and resources to help you get started.</span>
+    <span class="preheader">Thanks for trying out {{ product_name }}. We’ve pulled together some information and resources to help you get started.</span>
     <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0">
       <tr>
         <td align="center">
           <table class="email-content" width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td class="email-masthead">
-                <a href="https://example.com" class="email-masthead_name">
-        [Product Name]
-      </a>
+                <a href="{{ product_url }}" class="email-masthead_name">
+                  {{ product_name }}
+                </a>
               </td>
             </tr>
             <!-- Email Body -->
@@ -399,9 +399,9 @@
                   <!-- Body content -->
                   <tr>
                     <td class="content-cell">
-                      <h1>Welcome, {{name}}!</h1>
-                      <p>Thanks for trying [Product Name]. We’re thrilled to have you on board.</p>
-                      <p>To get the most out of [Product Name], do this primary next step:</p>
+                      <h1>Welcome, {{ name }}!</h1>
+                      <p>Thanks for trying {{ product_name }}. We’re excited to have you on board.</p>
+                      <p>To get start, please verify your email:</p>
                       <!-- Action -->
                       <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
                         <tr>
@@ -414,7 +414,7 @@
                                   <table border="0" cellspacing="0" cellpadding="0">
                                     <tr>
                                       <td>
-                                        <a href="{{action_url}}" class="button button--" target="_blank">Do this Next</a>
+                                        <a href="{{ action_url }}" class="button button--" target="_blank">Verify Email</a>
                                       </td>
                                     </tr>
                                   </table>
@@ -430,40 +430,25 @@
                           <td class="attributes_content">
                             <table width="100%" cellpadding="0" cellspacing="0">
                               <tr>
-                                <td class="attributes_item"><strong>Login Page:</strong> {{login_url}}</td>
+                                <td class="attributes_item"><strong>Login Page:</strong> {{ login_url }}</td>
                               </tr>
                               <tr>
-                                <td class="attributes_item"><strong>Username:</strong> {{username}}</td>
+                                <td class="attributes_item"><strong>Username:</strong> {{ username }}</td>
                               </tr>
                             </table>
                           </td>
                         </tr>
                       </table>
-                      <p>You've started a {{trial_length}} day trial. You can upgrade to a paying account or cancel any time.</p>
-                      <table class="attributes" width="100%" cellpadding="0" cellspacing="0">
-                        <tr>
-                          <td class="attributes_content">
-                            <table width="100%" cellpadding="0" cellspacing="0">
-                              <tr>
-                                <td class="attributes_item"><strong>Trial Start Date:</strong> {{trial_start_date}}</td>
-                              </tr>
-                              <tr>
-                                <td class="attributes_item"><strong>Trial End Date:</strong> {{trial_end_date}}</td>
-                              </tr>
-                            </table>
-                          </td>
-                        </tr>
-                      </table>
-                      <p>If you have any questions, feel free to <a href="mailto:{{support_email}}">email our customer success team</a>. (We're lightning quick at replying.) We also offer <a href="{{live_chat_url}}">live chat</a> during business hours.</p>
+                      <p>If you have any questions, feel free to <a href="mailto:{{ support_email }}">email us</a>. (We're lightning quick at replying.) We also offer <a href="{{ live_chat_url }}">live chat</a> during business hours.</p>
                       <p>Thanks,
-                        <br>[Sender Name] and the [Product Name] Team</p>
-                      <p><strong>P.S.</strong> Need immediate help getting started? Check out our <a href="{{help_url}}">help documentation</a>. Or, just reply to this email, the [Product Name] support team is always ready to help!</p>
+                        <br>{{ sender_name }} and the {{ product_name }} Team</p>
+                      <p><strong>P.S.</strong> Need immediate help getting started? Check out our <a href="{{ help_url }}">help documentation</a>. Or, just reply to this email, the {{ product_name }} team is always ready to help!</p>
                       <!-- Sub copy -->
                       <table class="body-sub">
                         <tr>
                           <td>
                             <p class="sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
-                            <p class="sub">{{action_url}}</p>
+                            <p class="sub">{{ action_url }}</p>
                           </td>
                         </tr>
                       </table>
@@ -477,11 +462,9 @@
                 <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0">
                   <tr>
                     <td class="content-cell" align="center">
-                      <p class="sub align-center">&copy; 2016 [Product Name]. All rights reserved.</p>
+                      <p class="sub align-center">&copy; 2016 {{ product_name }}. All rights reserved.</p>
                       <p class="sub align-center">
-                        [Company Name, LLC]
-                        <br>1234 Street Rd.
-                        <br>Suite 1234
+                        {{ company_name }}
                       </p>
                     </td>
                   </tr>

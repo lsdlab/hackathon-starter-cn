@@ -156,7 +156,7 @@ router.post('/login', function(req, res, next) {
         return next(err)
       }
       req.flash('success', { msg: '登录成功' })
-      return res.redirect(req.session.returnTo || '/')
+      return res.redirect('/')
     })
   })(req, res, next)
 })
@@ -320,7 +320,7 @@ router.get('/forgotpassword', function(req, res) {
  * PSOT /forgotpassword
  * send email for get password back
  */
-router.get('/forgotpassword', function(req, res) {
+router.post('/forgotpassword', function(req, res) {
   req.assert('email', 'Email is not valid.').isEmail()
 
   var errors = req.validationErrors()

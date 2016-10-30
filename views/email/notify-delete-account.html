@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>{{invite_sender_name}} invited you to [Product Name]</title>
+    <title>Delete {{ product_name }} account</title>
     <!--
     The style block is collapsed on page load to save you some scrolling.
     Postmark automatically inlines all CSS properties for maximum email client
@@ -380,7 +380,7 @@
     </style>
   </head>
   <body>
-    <span class="preheader">{{invite_sender_name}} with {{invite_sender_organization_name}} has invited you to use [Product Name] to collaborate with them.</span>
+    <span class="preheader">You just delete your {{ product_name }} account.</span>
     <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0">
       <tr>
         <td align="center">
@@ -388,8 +388,8 @@
             <tr>
               <td class="email-masthead">
                 <a href="https://example.com" class="email-masthead_name">
-        [Product Name]
-      </a>
+                  {{ product_name }}
+                </a>
               </td>
             </tr>
             <!-- Email Body -->
@@ -399,8 +399,10 @@
                   <!-- Body content -->
                   <tr>
                     <td class="content-cell">
-                      <h1>Hi, {{name}}!</h1>
-                      <p>{{invite_sender_name}} with {{invite_sender_organization_name}} has invited you to use [Product Name] to collaborate with them. Use the button below to set up your account and get started:</p>
+                      <h1>Hi {{ name }},</h1>
+                      <p>You recently requested to delete your {{ product_name }} account.
+                      <p>We are sad for you leave, if you have any complain about {{ product_name }}, feel free to <a href="mailto:{{ support_email }}">email us</a>. (We're lightning quick at replying.) We also offer <a href="{{ live_chat_url }}">live chat</a> during business hours.</p>
+                      <p>Or, you can just use {{ product_name }} again!
                       <!-- Action -->
                       <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
                         <tr>
@@ -413,7 +415,7 @@
                                   <table border="0" cellspacing="0" cellpadding="0">
                                     <tr>
                                       <td>
-                                        <a href="{{action_url}}" class="button button--" target="_blank">Set up account</a>
+                                        <a href="{{ action_url }}" class="button button--green" target="_blank">Sign up</a>
                                       </td>
                                     </tr>
                                   </table>
@@ -423,16 +425,15 @@
                           </td>
                         </tr>
                       </table>
-                      <p>If you have any questions for {{invite_sender_name}}, you can reply to this email and it will go right to them. Alternatively, feel free to <a href="mailto:{{support_email}}">contact our customer success team</a> anytime. (We're lightning quick at replying.) We also offer <a href="{{live_chat_url}}">live chat</a> during business hours.</p>
-                      <p>Welcome aboard,
-                        <br>The [Product Name] Team</p>
-                      <p><strong>P.S.</strong> Need help getting started? Check out our <a href="{{help_url}}">help documentation</a>.</p>
+                      <p>For security, this request was received from a {{ operating_system }} device using {{ browser_name }}. If you did not request unlink {{ provider }} with {{ product_name }}, please ignore this email or <a href="mailto:{{ support_email }}">contact support</a> if you have questions.</p>
+                      <p>Thanks,
+                        <br>The {{ product_name }} Team</p>
                       <!-- Sub copy -->
                       <table class="body-sub">
                         <tr>
                           <td>
                             <p class="sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
-                            <p class="sub">{{action_url}}</p>
+                            <p class="sub">{{ action_url }}</p>
                           </td>
                         </tr>
                       </table>
@@ -446,11 +447,9 @@
                 <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0">
                   <tr>
                     <td class="content-cell" align="center">
-                      <p class="sub align-center">&copy; 2016 [Product Name]. All rights reserved.</p>
+                      <p class="sub align-center">&copy; 2016 {{ product_name }}. All rights reserved.</p>
                       <p class="sub align-center">
-                        [Company Name, LLC]
-                        <br>1234 Street Rd.
-                        <br>Suite 1234
+                        {{ company_name }}
                       </p>
                     </td>
                   </tr>
