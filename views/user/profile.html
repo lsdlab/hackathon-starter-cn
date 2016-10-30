@@ -92,6 +92,21 @@
             </div>
         </form>
         <div class="page-header mt30 pbn ">
+          <h4>已连接帐号</h4>
+        </div>
+        <div class="form-horizontal ">
+          <div class="form-group ">
+            <input type="hidden" name="_csrf" value=_csrf />
+            <div class="col-sm-offset-3 col-sm-4 ">
+              {% if user.github %}
+                <a href="/account/unlink/github " class="btn btn-default " id="link-github "><i class="fa fa-github mr10 "></i>断开 GitHub 链接</a>
+              {% else %}
+                <a href="/auth/github " class="btn btn-default " id="link-github "><i class="fa fa-github mr10 "></i>连接 GitHub</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="page-header mt30 pbn ">
           <h4>删除账户</h4>
         </div>
         <div class="form-horizontal ">
@@ -106,21 +121,6 @@
           <form id="delete-account-form " action="/account/delete " method="POST ">
             <input type="hidden" name="_csrf" value=_csrf />
           </form>
-        </div>
-        <div class="page-header mt30 pbn ">
-          <h4>已连接帐号</h4>
-        </div>
-        <div class="form-horizontal ">
-          <div class="form-group ">
-            <input type="hidden" name="_csrf" value=_csrf />
-            <div class="col-sm-offset-3 col-sm-4 ">
-              {% if user.github %}
-                <a href="/account/unlink/github " class="btn btn-default " id="link-github "><i class="fa fa-github mr10 "></i>断开 GitHub 链接</a>
-              {% else %}
-                <a href="/auth/github " class="btn btn-default " id="link-github "><i class="fa fa-github mr10 "></i>连接 GitHub</a>
-              {% endif %}
-            </div>
-          </div>
         </div>
     </div>
 
