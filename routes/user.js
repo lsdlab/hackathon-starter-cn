@@ -5,11 +5,6 @@ const shortid = require('shortid')
 const User = require('../models/user')
 const passportConfig = require('../passport/passport')
 
-const dotenv = require('dotenv')
-dotenv.load({
-  path: '.env.development'
-})
-
 const postmark = require('./postmark')
 
 
@@ -52,8 +47,7 @@ router.post('/signup', function(req, res, next) {
   User.findOne({ email: req.body.email }, function(err, existingUser) {
     if (existingUser) {
       req.flash('errors', { msg: '此邮箱已经存在，请直接登录' })
-      var string = encodeURIComponent('verifying')
-      return res.redirect('/verifying?valid=' + string)
+      return res.redirect('/login')
     }
 
     user.save(function(err) {
@@ -65,7 +59,7 @@ router.post('/signup', function(req, res, next) {
       var name = req.body.email
       var username = req.body.email
       var action_url = 'http://' + req.headers.host + '/verifybyemail/' + user.quickLoginToken
-      postmark.sendConfirmEmail(target_email, name, username, action_url).then(function(error) {
+      postmark.sendWelcomeEmail(target_email, name, username, action_url).then(function(error) {
         if (error) {
           req.flash('errors', { msg: '确认邮件发送失败，请稍后重试' })
           return res.redirect('/signup')
@@ -101,6 +95,37 @@ router.get('/verifying', function(req, res) {
  */
 router.get('/verifybyemail/:quicklogintoken', function(req, res, next) {
   User.findOne({ quickLoginToken: req.params.quicklogintoken }, function(err, existingUser) {
+    if (err) {
+      return next(err)
+    }
+    if (existingUser) {
+      req.logIn(existingUser, function(err) {
+        if (err) {
+          return next(err)
+        }
+        User.update({ '_id': existingUser._id }, { $set: { 'accountStatus': 'verified' } }, function() {
+          if (err) {
+            return next(err)
+          }
+          return res.redirect('/signup')
+        })
+      })
+    } else {
+      req.flash('errors', err)
+      return res.redirect('/signup')
+    }
+  })
+})
+
+/**
+ * GET /quicklogin
+ * Quick login page.
+ */
+router.get('/quicklogin/:quicklogintoken', function(req, res, next) {
+  User.findOne({ quickLoginToken: req.params.quicklogintoken }, function(err, existingUser) {
+    if (err) {
+      return next(err)
+    }
     if (existingUser) {
       req.logIn(existingUser, function(err) {
         if (err) {
@@ -243,7 +268,7 @@ router.post('/account/password', passportConfig.isAuthenticated, function(req, r
           res.redirect('/account')
         })
       } else {
-        req.flash('errors', { msg: '旧密码错误' })
+        req.flash('errors', { msg: '旧密码错误，请重新输入' })
         return res.redirect('/account')
       }
     })
@@ -287,6 +312,7 @@ router.get('/account/unlink/:provider', passportConfig.isAuthenticated, function
         var provider_name = 'GitHub'
       }
       req.flash('info', { msg: `${provider_name} 已被断开连接` })
+
       return res.redirect('/account')
     })
   })
@@ -333,7 +359,7 @@ router.post('/forgotpassword', function(req, res) {
   User.findOne({ email: req.body.email }, function(err, existingUser) {
     if (existingUser) {
 
-      postmark.sendConfirmEmail(req.body.email, req.body.email, req.body.email,
+      postmark.sendForgotPasswordEmail(req.body.email, req.body.email, req.body.email,
         'http://' + req.headers.host + '/resetpasswordbyemail/' + existingUser.quickLoginToken)
 
       req.flash('success', { msg: '邮件发送成功，请检查收件箱' })

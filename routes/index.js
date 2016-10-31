@@ -3,13 +3,12 @@ const router = express.Router()
 const fs = require('fs')
 const marked = require('marked')
 
-
 /**
  * GET /
  * Index page.
  */
 router.get('/', function(req, res) {
-  res.render('index')
+  res.render('index', { title: 'index' })
 })
 
 /* GET 404 page. */
@@ -25,7 +24,7 @@ router.get('/about', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('about', { markdownContent: markdownContent })
+    res.render('about', { markdownContent: markdownContent, title: 'about' })
   })
 })
 
@@ -36,7 +35,7 @@ router.get('/introduction', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('introduction', { markdownContent: markdownContent })
+    res.render('introduction', { markdownContent: markdownContent, title: 'introduction' })
   })
 })
 
@@ -47,7 +46,7 @@ router.get('/scaffold', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('scaffold', { markdownContent: markdownContent })
+    res.render('scaffold', { markdownContent: markdownContent, title: 'introduction' })
   })
 })
 
@@ -59,7 +58,7 @@ router.get('/api', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('api', { markdownContent: markdownContent })
+    res.render('api', { markdownContent: markdownContent, title: 'introduction' })
   })
 })
 
@@ -71,7 +70,7 @@ router.get('/email', function(req, res) {
       console.log(err)
     }
     var markdownContent = marked(data)
-    res.render('email', { markdownContent: markdownContent })
+    res.render('email', { markdownContent: markdownContent, title: 'introduction' })
   })
 })
 

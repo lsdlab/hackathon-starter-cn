@@ -1,4 +1,4 @@
-{% extends '../layout.html' %}
+{% extends "../layout.html" %}
 
 {% block title %}
   账户
@@ -50,75 +50,75 @@
       <div class="form-group">
         <label for="gravatar" class="col-sm-3 control-label">头像</label>
         <div class="col-sm-4">
-          <img src="{% if user.profile.avatar %} {{ user.profile.avatar }} {% else %} {{ user.gravatar(user.email.toString()) }} {% endif %}", " width="100 " height="100 " class="profile " /></div>
+          <img src="{% if user.profile.avatar %} {{ user.profile.avatar }} {% else %} {{ user.gravatar(user.email.toString()) }} {% endif %}"," width="100" height="100" class="profile" /></div>
         </div>
-        <div class="form-group ">
-          <div class="col-sm-offset-3 col-sm-4 ">
-            <button type="submit " class="btn btn btn-primary "><i class="fa fa-pencil "></i>&nbsp
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-4">
+            <button type="submit" class="btn btn btn-primary"><i class="fa fa-pencil"></i>&nbsp
               更新
             </button>
           </div>
         </div>
       </form>
-        <div class="page-header mt30 pbn ">
+        <div class="page-header mt30 pbn">
             <h4>更改密码</h4>
         </div>
-        <form action="/account/password " method="POST " class="form-horizontal ">
+        <form action="/account/password" method="POST" class="form-horizontal">
             <input type="hidden" name="_csrf" value=_csrf />
-            <div class="form-group ">
-              <label for="old-password " class="col-sm-3 control-label ">旧密码</label>
-              <div class="col-sm-7 ">
-                  <input type="password " name="old-password " id="old-password " class="form-control " />
+            <div class="form-group">
+              <label for="old-password" class="col-sm-3 control-label">旧密码</label>
+              <div class="col-sm-7">
+                  <input type="password" name="old-password" id="old-password" class="form-control" />
               </div>
             </div>
-            <div class="form-group ">
-              <label for="password " class="col-sm-3 control-label ">新密码</label>
-              <div class="col-sm-7 ">
-                  <input type="password " name="password " id="password " class="form-control " placeholder="八位字符以上" />
+            <div class="form-group">
+              <label for="password" class="col-sm-3 control-label">新密码</label>
+              <div class="col-sm-7">
+                  <input type="password" name="password" id="password" class="form-control" placeholder="八位字符以上" />
               </div>
             </div>
-            <div class="form-group ">
-              <label for="confirmPassword " class="col-sm-3 control-label ">确认新密码</label>
-              <div class="col-sm-7 ">
-                  <input type="password " name="confirmPassword " id="confirmPassword " class="form-control " placeholder="八位字符以上" />
+            <div class="form-group">
+              <label for="confirmPassword" class="col-sm-3 control-label">确认新密码</label>
+              <div class="col-sm-7">
+                  <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="八位字符以上" />
               </div>
             </div>
-            <div class="form-group ">
-              <div class="col-sm-offset-3 col-sm-4 ">
-                <button type="submit " class="btn btn-primary "><i class="fa fa-key "></i>&nbsp
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-4">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-key"></i>&nbsp
                   更新密码
                 </button>
               </div>
             </div>
         </form>
-        <div class="page-header mt30 pbn ">
+        <div class="page-header mt30 pbn">
           <h4>已连接帐号</h4>
         </div>
-        <div class="form-horizontal ">
-          <div class="form-group ">
+        <div class="form-horizontal">
+          <div class="form-group">
             <input type="hidden" name="_csrf" value=_csrf />
-            <div class="col-sm-offset-3 col-sm-4 ">
+            <div class="col-sm-offset-3 col-sm-4">
               {% if user.github %}
-                <a href="/account/unlink/github " class="btn btn-default " id="link-github "><i class="fa fa-github mr10 "></i>断开 GitHub 链接</a>
+                <a href="/account/unlink/github" class="btn btn-default" id="link-github"><i class="fa fa-github mr10"></i>断开 GitHub 链接</a>
               {% else %}
-                <a href="/auth/github " class="btn btn-default " id="link-github "><i class="fa fa-github mr10 "></i>连接 GitHub</a>
+                <a href="/auth/github" class="btn btn-default" id="link-github"><i class="fa fa-github mr10"></i>连接 GitHub</a>
               {% endif %}
             </div>
           </div>
         </div>
-        <div class="page-header mt30 pbn ">
+        <div class="page-header mt30 pbn">
           <h4>删除账户</h4>
         </div>
-        <div class="form-horizontal ">
-          <div class="form-group ">
-            <p class="col-sm-offset-3 col-sm-8 ">删除账户操作不可逆。</p>
-            <div class="col-sm-offset-3 col-sm-4 ">
-              <button class="btn btn-danger " id="delete-account-btn "><i class="fa fa-trash "></i>&nbsp
+        <div class="form-horizontal">
+          <div class="form-group">
+            <p class="col-sm-offset-3 col-sm-8">删除账户操作不可逆。</p>
+            <div class="col-sm-offset-3 col-sm-4">
+              <button class="btn btn-danger" id="delete-account-btn"><i class="fa fa-trash"></i>&nbsp
                 删除账户
               </button>
             </div>
           </div>
-          <form id="delete-account-form " action="/account/delete " method="POST ">
+          <form id="delete-account-form" action="/account/delete" method="POST">
             <input type="hidden" name="_csrf" value=_csrf />
           </form>
         </div>
@@ -126,12 +126,14 @@
 
     {% include "../partials/footer.html" %}
 
-    <script>
-      $('#delete-account-btn').on('click', function() {
-        notie.confirm('确认删除帐号?', '确认', '取消', function() {
-          $('#delete-account-form').submit()
-        })
-      })
-    </script>
+{% endblock %}
 
+{% block pagejs %}
+<script>
+  $('#delete-account-btn').on('click', function() {
+    notie.confirm('确认删除帐号?', '确认', '取消', function() {
+      $('#delete-account-form').submit()
+    })
+  })
+</script>
 {% endblock %}

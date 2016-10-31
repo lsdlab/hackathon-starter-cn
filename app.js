@@ -12,7 +12,7 @@ const userRouter = require('./routes/user')
 const apiRouter = require('./routes/api')
 
 // dependencies
-const dotenv = require('dotenv')
+require('dotenv').config()
 const chalk = require('chalk')
 const expressValidator = require('express-validator')
 const mongoose = require('mongoose')
@@ -25,13 +25,6 @@ const multer = require('multer')
 const upload = multer({ dest: path.join(__dirname, 'uploads') })
 require('nodejs-dashboard')
 
-
-/**
- * Load environment variables from .env file, where API keys and passwords are configured.
- */
-dotenv.load({
-  path: '.env.development'
-})
 
 /**
  * mongoose connect to MongoDB.

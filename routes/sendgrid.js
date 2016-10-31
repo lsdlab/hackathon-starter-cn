@@ -1,7 +1,4 @@
-const dotenv = require('dotenv')
-dotenv.load({
-  path: '.env.development'
-})
+require('dotenv').config()
 
 var helper = require('sendgrid').mail
 var from_email = new helper.Email('test@example.com')
