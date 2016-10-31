@@ -1,15 +1,10 @@
-const dotenv = require('dotenv')
+require('dotenv').config()
 
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const GitHubStrategy = require('passport-github').Strategy
 
 const User = require('../models/user')
-
-
-dotenv.load({
-  path: '.env.development'
-})
 
 passport.serializeUser((user, done) => {
   done(null, user.id)
