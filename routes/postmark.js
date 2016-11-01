@@ -69,6 +69,36 @@ function sendResetPasswordEmail(target_email, name, action_url, operating_system
 }
 
 
+function sendNotifyModifyPasswordEmail(target_email, name, action_url, operating_system, browser_name) {
+  var sendNotifyModifyPasswordDefer = Q.defer()
+
+  var tplString = emailTpl.resetPassword
+  var renderedTpl = nunjucks.renderString(tplString, {
+    product_name: process.env.product_name,
+    product_url: process.env.product_url,
+    name: name,
+    action_url: action_url,
+    operating_system: operating_system,
+    browser_name: browser_name,
+    support_email: process.env.support_email,
+    company_name: process.env.company_name
+  })
+
+  client.sendEmail({
+    'From': process.env.from,
+    'To': target_email,
+    'HtmlBody': renderedTpl
+  }, function(error) {
+    if (error) {
+      sendNotifyModifyPasswordDefer.reject(error.message)
+    }
+    sendNotifyModifyPasswordDefer.resolve('')
+  })
+
+  return sendNotifyModifyPasswordDefer.promise
+}
+
+
 function sendNotifyUnlinkPorviderEmail(target_email, provider, name, action_url, operating_system, browser_name) {
   var sendNotifyUnlinkPorviderDefer = Q.defer()
 
@@ -198,6 +228,7 @@ function sendUserInvitationEmail(target_email, invite_sender_name, invite_sender
 
 module.exports.sendWelcomeEmail = sendWelcomeEmail
 module.exports.sendResetPasswordEmail = sendResetPasswordEmail
+module.exports.sendNotifyModifyPasswordEmail = sendNotifyModifyPasswordEmail
 module.exports.sendNotifyUnlinkPorviderEmail = sendNotifyUnlinkPorviderEmail
 module.exports.sendNotifyDeleteAccountEmail = sendNotifyDeleteAccountEmail
 module.exports.sendNotifySetupApiEmail = sendNotifySetupApiEmail

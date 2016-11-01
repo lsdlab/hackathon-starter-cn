@@ -6,6 +6,7 @@ require.extensions['.html'] = function (module, filename) {
 
 const welcome = require('../views/email/welcome.html')
 const resetPassword = require('../views/email/reset-passpord.html')
+const notifyModifyPassword = require('../views/email/notify-modify-password.html')
 const notifyUnlinkProvider = require('../views/email/notify-unlink-provider.html')
 const notifyDeleteAccount = require('../views/email/notify-delete-account.html')
 const notifySetupAPI = require('../views/email/notify-setup-api.html')
@@ -14,6 +15,7 @@ const userInvitaiton = require('../views/email/user-invitation.html')
 
 module.exports.welcome = welcome
 module.exports.resetPassword = resetPassword
+module.exports.notifyModifyPassword = notifyModifyPassword
 module.exports.notifyUnlinkProvider = notifyUnlinkProvider
 module.exports.notifyDeleteAccount = notifyDeleteAccount
 module.exports.notifySetupAPI = notifySetupAPI

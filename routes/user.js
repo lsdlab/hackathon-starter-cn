@@ -265,6 +265,15 @@ router.post('/account/password', passportConfig.isAuthenticated, function(req, r
           if (err) {
             return next(err)
           }
+
+          var target_email = user.email
+          var action_url = 'https://' + req.headers.host + '/account'
+          postmark.sendNotifyModifyPasswordEmail(target_email, name, action_url, '', '').then(function(error) {
+            if (error) {
+              return next(error)
+            }
+          })
+
           req.flash('success', { msg: '密码已更改' })
           res.redirect('/account')
         })
