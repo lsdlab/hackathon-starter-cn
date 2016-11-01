@@ -1,5 +1,4 @@
 require('dotenv').config()
-
 var helper = require('sendgrid').mail
 var from_email = new helper.Email('test@example.com')
 var to_email = new helper.Email('test@example.com')

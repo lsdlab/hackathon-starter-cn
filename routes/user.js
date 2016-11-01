@@ -58,7 +58,7 @@ router.post('/signup', function(req, res, next) {
       var target_email = req.body.email
       var name = req.body.email
       var username = req.body.email
-      var action_url = 'http://' + req.headers.host + '/verifybyemail/' + user.quickLoginToken
+      var action_url = 'https://' + req.headers.host + '/verifybyemail/' + user.quickLoginToken
       postmark.sendWelcomeEmail(target_email, name, username, action_url).then(function(error) {
         if (error) {
           req.flash('errors', { msg: '确认邮件发送失败，请稍后重试' })
@@ -66,6 +66,7 @@ router.post('/signup', function(req, res, next) {
         } else {
           var string = encodeURIComponent('verifying')
           var quicklogintoken = encodeURIComponent(user.quickLoginToken)
+          req.flash('success', { msg: '邮件发送成功，请检查收件箱' })
           return res.redirect('/verifying?valid=' + string + '&quicklogintoken=' + quicklogintoken)
         }
       })
@@ -147,7 +148,7 @@ router.get('/quicklogin/:quicklogintoken', function(req, res, next) {
  */
 router.get('/login', function(req, res) {
   if (req.user) {
-    return res.redirect('/')
+    return res.redirect(req.session.returnTo || '/')
   }
   res.render('user/login')
 })
@@ -285,6 +286,18 @@ router.post('/account/delete', passportConfig.isAuthenticated, function(req, res
     if (err) {
       return next(err)
     }
+
+    if (req.user.email) {
+      var target_email = req.user.email
+      var name = req.user.email
+      var action_url = 'https://' + req.headers.host + '/signup'
+      postmark.sendNotifyDeleteAccountEmail(target_email, name, action_url, '', '').then(function(error) {
+        if (error) {
+          return next(error)
+        }
+      })
+    }
+
     req.logout()
     req.flash('info', { msg: '账户已被删除' })
     return res.redirect('/')
@@ -311,8 +324,16 @@ router.get('/account/unlink/:provider', passportConfig.isAuthenticated, function
       if (provider == 'github') {
         var provider_name = 'GitHub'
       }
-      req.flash('info', { msg: `${provider_name} 已被断开连接` })
 
+      var target_email = user.email
+      var action_url = 'https://' + req.headers.host + '/account'
+      postmark.sendNotifyUnlinkPorviderEmail(target_email, provider_name, name, action_url, '', '').then(function(error) {
+        if (error) {
+          return next(error)
+        }
+      })
+
+      req.flash('info', { msg: `${provider_name} 已被断开连接` })
       return res.redirect('/account')
     })
   })
@@ -359,11 +380,18 @@ router.post('/forgotpassword', function(req, res) {
   User.findOne({ email: req.body.email }, function(err, existingUser) {
     if (existingUser) {
 
-      postmark.sendForgotPasswordEmail(req.body.email, req.body.email, req.body.email,
-        'http://' + req.headers.host + '/resetpasswordbyemail/' + existingUser.quickLoginToken)
-
-      req.flash('success', { msg: '邮件发送成功，请检查收件箱' })
-      return res.redirect('/forgotpassword')
+      var target_email = req.body.email
+      var name = req.body.email
+      var action_url = 'https://' + req.headers.host + '/resetpasswordbyemail/' + existingUser.quickLoginToken
+      postmark.sendResetPasswordEmail(target_email, name, action_url).then(function(error) {
+        if (error) {
+          req.flash('errors', { msg: '邮件发送失败，请稍后重试' })
+          return res.redirect('/forgotpassword')
+        } else {
+          req.flash('success', { msg: '邮件发送成功，请检查收件箱' })
+          return res.redirect('/forgotpassword')
+        }
+      })
     } else {
       req.flash('errors', err)
       return res.redirect('/forgotpassword')
@@ -376,7 +404,7 @@ router.post('/forgotpassword', function(req, res) {
  * GET /resetpasswordbyemail
  * Reset password by email page.
  */
-router.get('/resetpasswordbyemail/:quicklogintoken', function(req, res, next) {
+router.get('/resetpasswordbyemail/:quicklogintoken', function(req, res) {
   User.findOne({ quickLoginToken: req.params.quicklogintoken }, function(err, existingUser) {
     if (existingUser) {
       res.render('user/forgotpassword.html')
