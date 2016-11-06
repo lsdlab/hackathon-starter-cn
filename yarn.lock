@@ -324,7 +324,7 @@ blocked@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/blocked/-/blocked-1.2.1.tgz#e22efe767863c65ab8197f6252929104e1ec9ce2"
 
-bluebird@^3.3.4, bluebird@3.4.x:
+bluebird@^3.3.4, bluebird@^3.4.6, bluebird@3.4.x:
   version "3.4.6"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.4.6.tgz#01da8d821d87813d158967e743d5fe6c62cf8c0f"
 
@@ -625,9 +625,9 @@ connect-flash@0.1.x:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/connect-flash/-/connect-flash-0.1.1.tgz#d8630f26d95a7f851f9956b1e8cc6732f3b6aa30"
 
-connect-pg-simple@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/connect-pg-simple/-/connect-pg-simple-3.1.0.tgz#414e89f93ee38ff4ec84b5fcb8c32ad6671984b6"
+connect-pg-simple@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/connect-pg-simple/-/connect-pg-simple-3.1.2.tgz#d11fb3755b5b535c1915be2b87fcd4fdd3e10950"
   dependencies:
     pg ">=2.7.0-0 <5.0.0-0"
 
@@ -670,12 +670,25 @@ crc@3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/crc/-/crc-3.4.1.tgz#65d5830b1a2569557cfb324c0e679998521473ee"
 
+cross-env@^3.1.2:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-3.1.3.tgz#58cd8231808f50089708b091f7dd37275a8e8154"
+  dependencies:
+    cross-spawn "^3.0.1"
+
 cross-spawn-async@^2.1.8:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/cross-spawn-async/-/cross-spawn-async-2.2.4.tgz#c9a8d8e9a06502c7a46296e33a1a054b5d2f1812"
   dependencies:
     lru-cache "^4.0.0"
     which "^1.2.8"
+
+cross-spawn@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-3.0.1.tgz#1256037ecb9f0c5f79e3d6ef135e30770184b982"
+  dependencies:
+    lru-cache "^4.0.1"
+    which "^1.2.9"
 
 cross-spawn@^4.0.2:
   version "4.0.2"
@@ -768,7 +781,7 @@ delegates@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
 
-depd@~1.1.0:
+depd@^1.1.0, depd@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.0.tgz#e1bd82c6aab6ced965b97b88b17ed3e528ca18c3"
 
@@ -818,6 +831,10 @@ domutils@^1.5.1, domutils@1.5, domutils@1.5.1:
 dotenv@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-2.0.0.tgz#bd759c357aaa70365e01c96b7b0bec08a6e0d949"
+
+dottie@^1.0.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/dottie/-/dottie-1.1.1.tgz#45c2a3f48bd6528eeed267a69a848eaaca6faa6a"
 
 double-ended-queue@^2.1.0-0:
   version "2.1.0-0"
@@ -1425,6 +1442,10 @@ indexof@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/indexof/-/indexof-0.0.1.tgz#82dc336d232b9062179d05ab3293a66059fd435d"
 
+inflection@^1.6.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/inflection/-/inflection-1.10.0.tgz#5bffcb1197ad3e81050f8e17e21668087ee9eb2f"
+
 inflight@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/inflight/-/inflight-1.0.5.tgz#db3204cd5a9de2e6cd890b85c6e2f66bcf4f620a"
@@ -1778,6 +1799,10 @@ lodash@^4.16.6:
   version "4.16.6"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.6.tgz#d22c9ac660288f3843e16ba7d2b5d06cca27d777"
 
+lodash@4.12.0:
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.12.0.tgz#2bd6dc46a040f59e686c972ed21d93dc59053258"
+
 log4js@^0.6.38:
   version "0.6.38"
   resolved "https://registry.yarnpkg.com/log4js/-/log4js-0.6.38.tgz#2c494116695d6fb25480943d3fc872e662a522fd"
@@ -1963,6 +1988,16 @@ mocha@^3.1.2:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
+moment-timezone@^0.5.4:
+  version "0.5.9"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.9.tgz#e0ea82036d67d21d793544a91b5057f480eda2dd"
+  dependencies:
+    moment ">= 2.6.0"
+
+moment@^2.13.0, "moment@>= 2.6.0":
+  version "2.15.2"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.15.2.tgz#1bfdedf6a6e345f322fe956d5df5bd08a8ce84dc"
+
 moment@2.x.x:
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.15.1.tgz#e979c2a29e22888e60f396f2220a6118f85cd94c"
@@ -2033,7 +2068,7 @@ node-pre-gyp@^0.6.29:
     tar "~2.2.1"
     tar-pack "~3.3.0"
 
-node-uuid@~1.4.7:
+node-uuid@~1.4.4, node-uuid@~1.4.7:
   version "1.4.7"
   resolved "https://registry.yarnpkg.com/node-uuid/-/node-uuid-1.4.7.tgz#6da5a17668c4b3dd59623bda11cf7fa4c1f60a6f"
 
@@ -2278,6 +2313,12 @@ pause@0.0.1:
 pg-connection-string@0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/pg-connection-string/-/pg-connection-string-0.1.3.tgz#da1847b20940e42ee1492beaf65d49d91b245df7"
+
+pg-hstore@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/pg-hstore/-/pg-hstore-2.3.2.tgz#f7ef053e7b9b892ae986af2f7cbe86432dfcf24f"
+  dependencies:
+    underscore "^1.7.0"
 
 pg-minify@0.3:
   version "0.3.3"
@@ -2667,6 +2708,14 @@ request@~2.9.202:
   version "2.9.203"
   resolved "https://registry.yarnpkg.com/request/-/request-2.9.203.tgz#6c1711a5407fb94a114219563e44145bcbf4723a"
 
+retry-as-promised@^2.0.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/retry-as-promised/-/retry-as-promised-2.2.0.tgz#b0463d7fd3cf5b2fed64500ab6e8b8a49c5b8e6c"
+  dependencies:
+    bluebird "^3.4.6"
+    cross-env "^3.1.2"
+    debug "^2.2.0"
+
 right-align@^0.1.1:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/right-align/-/right-align-0.1.3.tgz#61339b722fe6a3515689210d24e14c96148613ef"
@@ -2687,7 +2736,7 @@ semver@^4.1.0, semver@~4.3.3:
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/semver/-/semver-4.3.6.tgz#300bc6e0e86374f7ba61068b5b1ecd57fc6532da"
 
-semver@~5.3.0:
+semver@^5.0.1, semver@~5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
 
@@ -2728,6 +2777,27 @@ sendgrid@^4.7.1:
     lodash.chunk "^4.2.0"
     sendgrid-rest "^2.3.0"
 
+sequelize@^3.24.8:
+  version "3.24.8"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-3.24.8.tgz#e89c5ff86aa99afda67019c7af90a10535b6ec4e"
+  dependencies:
+    bluebird "^3.3.4"
+    depd "^1.1.0"
+    dottie "^1.0.0"
+    generic-pool "2.4.2"
+    inflection "^1.6.0"
+    lodash "4.12.0"
+    moment "^2.13.0"
+    moment-timezone "^0.5.4"
+    node-uuid "~1.4.4"
+    retry-as-promised "^2.0.0"
+    semver "^5.0.1"
+    shimmer "1.1.0"
+    terraformer-wkt-parser "^1.1.0"
+    toposort-class "^1.0.1"
+    validator "^5.2.0"
+    wkx "0.2.0"
+
 serve-favicon@~2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/serve-favicon/-/serve-favicon-2.3.0.tgz#aed36cc6834069a6f189cc7222c6a1a811dc5b39"
@@ -2757,6 +2827,10 @@ set-immediate-shim@^1.0.1:
 setprototypeof@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.0.1.tgz#52009b27888c4dc48f591949c0a8275834c1ca7e"
+
+shimmer@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/shimmer/-/shimmer-1.1.0.tgz#97d7377137ffbbab425522e429fe0aa89a488b35"
 
 shortid@^2.2.6:
   version "2.2.6"
@@ -2988,6 +3062,16 @@ term-canvas@0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/term-canvas/-/term-canvas-0.0.5.tgz#597afac2fa6369a6f17860bce9c5f66d6ea0ca96"
 
+terraformer-wkt-parser@^1.1.0:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/terraformer-wkt-parser/-/terraformer-wkt-parser-1.1.2.tgz#336a0c8fc82094a5aff83288f69aedecd369bf0c"
+  dependencies:
+    terraformer "~1.0.5"
+
+terraformer@~1.0.5:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/terraformer/-/terraformer-1.0.7.tgz#d8a19a56fbf25966ea062d21f515b93589702d69"
+
 through@2:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
@@ -3008,6 +3092,10 @@ topo@1.x.x:
   resolved "https://registry.yarnpkg.com/topo/-/topo-1.1.0.tgz#e9d751615d1bb87dc865db182fa1ca0a5ef536d5"
   dependencies:
     hoek "2.x.x"
+
+toposort-class@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/toposort-class/-/toposort-class-1.0.1.tgz#7ffd1f78c8be28c3ba45cd4e1a3f5ee193bd9988"
 
 tough-cookie@^2.2.0, tough-cookie@~2.3.0:
   version "2.3.1"
@@ -3082,7 +3170,7 @@ ultron@1.0.x:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.0.2.tgz#ace116ab557cd197386a4e88f4685378c8b2e4fa"
 
-underscore@^1.8.3:
+underscore@^1.7.0, underscore@^1.8.3:
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
 
@@ -3098,13 +3186,13 @@ utils-merge@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.0.tgz#0294fb922bb9375153541c4f7096231f287c8af8"
 
+validator@^5.2.0, validator@5.7.x:
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-5.7.0.tgz#7a87a58146b695ac486071141c0c49d67da05e5c"
+
 validator@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/validator/-/validator-6.1.0.tgz#39aab9a3a5724399a164bda4f5cf9261bb7d0e76"
-
-validator@5.7.x:
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/validator/-/validator-5.7.0.tgz#7a87a58146b695ac486071141c0c49d67da05e5c"
 
 vary@~1.1.0:
   version "1.1.0"
@@ -3159,6 +3247,10 @@ window-size@^0.1.4:
 window-size@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.0.tgz#5438cd2ea93b202efa3a19fe8887aee7c94f9c9d"
+
+wkx@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/wkx/-/wkx-0.2.0.tgz#76c24f16acd0cd8f93cd34aa331e0f7961256e84"
 
 "wordwrap@>=0.0.1 <0.1.0", wordwrap@~0.0.2:
   version "0.0.3"
