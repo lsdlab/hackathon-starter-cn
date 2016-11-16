@@ -20,7 +20,7 @@ router.get('/404', function(req, res) {
 router.get('/about', function(req, res) {
   var path = __dirname.slice(0, -7) + '/views/markdown/about.md'
   fs.readFile(path, 'utf8', function(err, data) {
-    if(err) {
+    if (err) {
       console.log(err)
     }
     var markdownContent = marked(data)
@@ -31,7 +31,7 @@ router.get('/about', function(req, res) {
 router.get('/introduction', function(req, res) {
   var path = __dirname.slice(0, -7) + '/views/markdown/introduction.md'
   fs.readFile(path, 'utf8', function(err, data) {
-    if(err) {
+    if (err) {
       console.log(err)
     }
     var markdownContent = marked(data)
@@ -42,7 +42,7 @@ router.get('/introduction', function(req, res) {
 router.get('/scaffold', function(req, res) {
   var path = __dirname.slice(0, -7) + '/views/markdown/scaffold.md'
   fs.readFile(path, 'utf8', function(err, data) {
-    if(err) {
+    if (err) {
       console.log(err)
     }
     var markdownContent = marked(data)
@@ -54,7 +54,7 @@ router.get('/scaffold', function(req, res) {
 router.get('/api', function(req, res) {
   var path = __dirname.slice(0, -7) + '/views/markdown/api.md'
   fs.readFile(path, 'utf8', function(err, data) {
-    if(err) {
+    if (err) {
       console.log(err)
     }
     var markdownContent = marked(data)
@@ -66,7 +66,7 @@ router.get('/api', function(req, res) {
 router.get('/email', function(req, res) {
   var path = __dirname.slice(0, -7) + '/views/markdown/email.md'
   fs.readFile(path, 'utf8', function(err, data) {
-    if(err) {
+    if (err) {
       console.log(err)
     }
     var markdownContent = marked(data)
