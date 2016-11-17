@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
+const _ = require('underscore')
 const shortid = require('shortid')
 const User = require('../models/user')
 const passportConfig = require('../passport/passport')
@@ -32,46 +33,46 @@ router.post('/signup', function(req, res, next) {
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password)
 
   var errors = req.validationErrors()
-
   if (errors) {
     req.flash('errors', errors)
     return res.redirect('/signup')
   }
 
-  var user = new User({
-    email: req.body.email,
-    password: req.body.password,
-    accountStatus: 'verifying',
-    quickLoginToken: shortid.generate()
-  })
+  var email = req.body.email
+  var password = req.body.password
+  var accountStatus = 'verifying'
+  var quickLoginToken = shortid.generate()
+  var createdAt = new Date()
+  var updatedAt = new Date()
 
-  User.findOne({ email: req.body.email }, function(err, existingUser) {
-    if (existingUser) {
+  var existingUserPromise = User.existingUser(email)
+  existingUserPromise.then(function(existingUser) {
+    if (!_.isEmpty(existingUser)) {
       req.flash('errors', { msg: '此邮箱已经存在，请直接登录' })
       return res.redirect('/login')
-    }
-
-    user.save(function(err) {
-      if (err) {
-        return next(err)
-      }
-
-      var target_email = req.body.email
-      var name = req.body.email
-      var username = req.body.email
-      var action_url = 'https://' + req.headers.host + '/verifybyemail/' + user.quickLoginToken
-      postmark.sendWelcomeEmail(target_email, name, username, action_url).then(function(error) {
-        if (error) {
-          req.flash('errors', { msg: '确认邮件发送失败，请稍后重试' })
+    } else {
+      db.none('insert into users(email, password, account_status, quick_login_token, created_at, updated_at) values($1, $2, $3, $4, $5, $6)', [email, password, accountStatus, quickLoginToken, createdAt, updatedAt])
+        .then(function(data) {
+          var target_email = req.body.email
+          var name = req.body.email
+          var username = req.body.email
+          var action_url = 'https://' + req.headers.host + '/verifybyemail/' + quickLoginToken
+          postmark.sendWelcomeEmail(target_email, name, username, action_url).then(function(error) {
+            if (error) {
+              req.flash('errors', { msg: '确认邮件发送失败，请稍后重试' })
+              return res.redirect('/signup')
+            } else {
+              var string = encodeURIComponent('verifying')
+              req.flash('success', { msg: '邮件发送成功，请检查收件箱' })
+              return res.redirect('/verifying?valid=' + string)
+            }
+          })
+        })
+        .catch(function(error) {
+          req.flash('errors', { msg: 'DATABASE ERROR' })
           return res.redirect('/signup')
-        } else {
-          var string = encodeURIComponent('verifying')
-          var quicklogintoken = encodeURIComponent(user.quickLoginToken)
-          req.flash('success', { msg: '邮件发送成功，请检查收件箱' })
-          return res.redirect('/verifying?valid=' + string + '&quicklogintoken=' + quicklogintoken)
-        }
-      })
-    })
+        })
+    }
   })
 })
 
@@ -82,9 +83,8 @@ router.post('/signup', function(req, res, next) {
  */
 router.get('/verifying', function(req, res) {
   var passedVariable = req.query.valid
-  var quicklogintoken = req.query.quicklogintoken
   if (passedVariable == 'verifying') {
-    res.render('user/verifying', { quicklogintoken: quicklogintoken })
+    res.render('user/verifying')
   } else {
     return res.redirect('/signup')
   }

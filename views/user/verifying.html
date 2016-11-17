@@ -16,11 +16,6 @@
     <form class="form-signin" class="single-form" action="/resend" method="POST" >
       <input type="hidden" name="_csrf" value=_csrf />
       <h4 class="form-signin-heading">正在验证邮箱，请点击邮件中的链接直接登录</h4>
-
-      <div class="mt20" style="display: none;">
-        <h4 class="form-signin-heading">直接登录</h4>
-        <a href="/verifybyemail/{{ quicklogintoken }}" class="btn btn-lg btn-primary btn-block mt20"><span class="fa fa-sign-in mr10"></span>登录</a>
-      </div>
     </form>
   </div>
 

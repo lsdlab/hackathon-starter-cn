@@ -16,7 +16,7 @@ function sendWelcomeEmail(target_email, name, username, action_url) {
     name: name,
     action_url: action_url,
     login_url: process.env.login_url,
-    username: 'username',
+    username: username,
     support_email: process.env.support_email,
     live_chat_url: process.env.live_chat_url,
     sender_name: process.env.sender_name,
@@ -24,9 +24,11 @@ function sendWelcomeEmail(target_email, name, username, action_url) {
     company_name: process.env.company_name
   })
 
+  var subject = 'Welcome to ' + process.env.product_name + ', ' + name + '!'
   client.sendEmail({
     'From': process.env.from,
     'To': target_email,
+    'Subject': subject,
     'HtmlBody': renderedTpl
   }, function(error) {
     if (error) {
@@ -54,9 +56,11 @@ function sendResetPasswordEmail(target_email, name, action_url, operating_system
     company_name: process.env.company_name
   })
 
+  var subject = 'Set up a new password for ' + process.env.product_name
   client.sendEmail({
     'From': process.env.from,
     'To': target_email,
+    'Subject': subject,
     'HtmlBody': renderedTpl
   }, function(error) {
     if (error) {
@@ -84,9 +88,11 @@ function sendNotifyModifyPasswordEmail(target_email, name, action_url, operating
     company_name: process.env.company_name
   })
 
+  var subject = 'Modified ' + process.env.product_name + ' account password'
   client.sendEmail({
     'From': process.env.from,
     'To': target_email,
+    'Subject': subject,
     'HtmlBody': renderedTpl
   }, function(error) {
     if (error) {
@@ -115,9 +121,11 @@ function sendNotifyUnlinkPorviderEmail(target_email, provider, name, action_url,
     company_name: process.env.company_name
   })
 
+  var subject = 'Unlink ' + provider + ' with ' + process.env.product_name
   client.sendEmail({
     'From': process.env.from,
     'To': target_email,
+    'Subject': subject,
     'HtmlBody': renderedTpl
   }, function(error) {
     if (error) {
@@ -146,9 +154,11 @@ function sendNotifyDeleteAccountEmail(target_email, name, action_url, operating_
     company_name: process.env.company_name
   })
 
+  var subject = 'Delete ' + process.env.product_name + ' account'
   client.sendEmail({
     'From': process.env.from,
     'To': target_email,
+    'Subject': subject,
     'HtmlBody': renderedTpl
   }, function(error) {
     if (error) {
@@ -179,9 +189,11 @@ function sendNotifySetupApiEmail(target_email, name, action_url, api_key, api_se
     company_name: process.env.company_name
   })
 
+  var subject = 'Setup' + process.env.product_name + ' API'
   client.sendEmail({
     'From': process.env.from,
     'To': target_email,
+    'Subject': subject,
     'HtmlBody': renderedTpl
   }, function(error) {
     if (error) {
@@ -211,9 +223,11 @@ function sendUserInvitationEmail(target_email, invite_sender_name, invite_sender
     company_name: process.env.company_name
   })
 
+  var subject = invite_sender_name + ' invited you to ' + process.env.product_name
   client.sendEmail({
     'From': process.env.from,
     'To': target_email,
+    'Subject': subject,
     'HtmlBody': renderedTpl
   }, function(error) {
     if (error) {
