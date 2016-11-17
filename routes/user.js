@@ -5,6 +5,7 @@ const shortid = require('shortid')
 const User = require('../models/user')
 const passportConfig = require('../passport/passport')
 
+const db = require('./db')
 const postmark = require('./postmark')
 
 

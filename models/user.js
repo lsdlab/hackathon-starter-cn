@@ -1,66 +1,7 @@
-const mongoose = require('mongoose')
 const bcrypt = require('bcrypt-nodejs')
 const crypto = require('crypto')
+const db = require('../routes/db')
 
-var userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    lowercase: true,
-    unique: true
-  },
-  password: String,
-  quickLoginToken: String,
-  quickLoginTokenExpires: Date,
-  passwordResetToken: String,
-  passwordResetExpires: Date,
-  accountStatus: {
-    type: String,
-    default: ''
-  },
-
-  client_id: String,
-  client_secret: String,
-
-  github: String,
-  tokens: Array,
-
-  profile: {
-    name: {
-      type: String,
-      default: ''
-    },
-    bio: {
-      type: String,
-      default: ''
-    },
-    url: {
-      type: String,
-      default: ''
-    },
-    location: {
-      type: String,
-      default: ''
-    },
-    avatar: {
-      type: String,
-      default: ''
-    }
-  },
-
-  created: {
-    type: Date,
-    default: Date.now
-  },
-  updated: {
-    type: Date,
-    default: Date.now
-  },
-
-  provider: {
-    type: String,
-    default: 'local'
-  }
-})
 
 /**
  * Password hash middleware.

@@ -3,7 +3,7 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const GitHubStrategy = require('passport-github').Strategy
 
-const User = require('../models/user')
+const db = require('../routes/db')
 
 passport.serializeUser((user, done) => {
   done(null, user.id)
