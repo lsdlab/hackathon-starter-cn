@@ -14,14 +14,14 @@ function existingUser(email) {
 /**
  * Password hash middleware.
  */
-function generatePassword(password) {
+function generateHashedPassword(password, next) {
   bcrypt.genSalt(10, (err, salt) => {
     if (err) {
-      return err
+      return next(err)
     }
     bcrypt.hash(password, salt, null, (err, hash) => {
       if (err) {
-        return err
+        return next(err)
       }
       return hash
     })
@@ -31,8 +31,8 @@ function generatePassword(password) {
 /**
  * Helper method for validating user's password.
  */
-function comparePassword(candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+function comparePassword(candidatePassword,userPassword, cb) {
+  bcrypt.compare(candidatePassword, userPassword, (err, isMatch) => {
     cb(err, isMatch)
   })
 }
@@ -57,6 +57,6 @@ function gravatar(email, size) {
 }
 
 module.exports.existingUser = existingUser
-module.exports.generatePassword = generatePassword
+module.exports.generateHashedPassword = generateHashedPassword
 module.exports.comparePassword = comparePassword
 module.exports.gravatar = gravatar

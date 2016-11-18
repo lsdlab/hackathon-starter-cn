@@ -51,7 +51,8 @@ router.post('/signup', function(req, res, next) {
       req.flash('errors', { msg: '此邮箱已经存在，请直接登录' })
       return res.redirect('/login')
     } else {
-      db.none('insert into users(email, password, account_status, quick_login_token, created_at, updated_at) values($1, $2, $3, $4, $5, $6)', [email, password, accountStatus, quickLoginToken, createdAt, updatedAt])
+      var hashedPassowrd = User.generateHashedPassword(password, next)
+      db.none('insert into users(email, password, account_status, quick_login_token, created_at, updated_at) values($1, $2, $3, $4, $5, $6)', [email, hashedPassowrd, accountStatus, quickLoginToken, createdAt, updatedAt])
         .then(function(data) {
           var target_email = req.body.email
           var name = req.body.email
