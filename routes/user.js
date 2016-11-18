@@ -3,9 +3,9 @@ const router = express.Router()
 const passport = require('passport')
 const _ = require('underscore')
 const shortid = require('shortid')
+
 const User = require('../models/user')
 const passportConfig = require('../passport/passport')
-
 const db = require('./db')
 const postmark = require('./postmark')
 
@@ -45,35 +45,37 @@ router.post('/signup', function(req, res, next) {
   var createdAt = new Date()
   var updatedAt = new Date()
 
-  var existingUserPromise = User.existingUser(email)
-  existingUserPromise.then(function(existingUser) {
+  User.findUserByEmail(email).then(function(existingUser) {
     if (!_.isEmpty(existingUser)) {
       req.flash('errors', { msg: '此邮箱已经存在，请直接登录' })
       return res.redirect('/login')
     } else {
-      var hashedPassowrd = User.generateHashedPassword(password, next)
-      db.none('insert into users(email, password, account_status, quick_login_token, created_at, updated_at) values($1, $2, $3, $4, $5, $6)', [email, hashedPassowrd, accountStatus, quickLoginToken, createdAt, updatedAt])
-        .then(function(data) {
-          var target_email = req.body.email
-          var name = req.body.email
-          var username = req.body.email
-          var action_url = 'https://' + req.headers.host + '/verifybyemail/' + quickLoginToken
-          postmark.sendWelcomeEmail(target_email, name, username, action_url).then(function(error) {
-            if (error) {
-              req.flash('errors', { msg: '确认邮件发送失败，请稍后重试' })
-              return res.redirect('/signup')
-            } else {
-              var string = encodeURIComponent('verifying')
-              req.flash('success', { msg: '邮件发送成功，请检查收件箱' })
-              return res.redirect('/verifying?valid=' + string)
-            }
+      User.generateHashedPassword(password).then(function(hashedPassowrd) {
+        db.none('insert into users(email, password, account_status, quick_login_token, created_at, updated_at) values($1, $2, $3, $4, $5, $6)', [email, hashedPassowrd, accountStatus, quickLoginToken, createdAt, updatedAt])
+          .then(function(data) {
+            var target_email = req.body.email
+            var name = req.body.email
+            var username = req.body.email
+            var action_url = 'https://' + req.headers.host + '/verifybyemail/' + quickLoginToken
+            postmark.sendWelcomeEmail(target_email, name, username, action_url).then(function(error) {
+              if (error) {
+                req.flash('errors', { msg: '确认邮件发送失败，请稍后重试' })
+                return res.redirect('/signup')
+              } else {
+                var string = encodeURIComponent('verifying')
+                req.flash('success', { msg: '邮件发送成功，请检查收件箱' })
+                return res.redirect('/verifying?valid=' + string)
+              }
+            })
           })
-        })
-        .catch(function(error) {
-          req.flash('errors', { msg: 'DATABASE ERROR' })
-          return res.redirect('/signup')
-        })
+          .catch(function(error) {
+            return next(error)
+          })
+      })
     }
+  })
+  .catch(function(error) {
+    return next(error)
   })
 })
 
@@ -97,26 +99,28 @@ router.get('/verifying', function(req, res) {
  * Verify by email page.
  */
 router.get('/verifybyemail/:quicklogintoken', function(req, res, next) {
-  User.findOne({ quickLoginToken: req.params.quicklogintoken }, function(err, existingUser) {
-    if (err) {
-      return next(err)
-    }
+  User.findUserByQuickLoginToken(req.params.quicklogintoken).then(function(existingUser) {
     if (existingUser) {
       req.logIn(existingUser, function(err) {
         if (err) {
           return next(err)
         }
-        User.update({ '_id': existingUser._id }, { $set: { 'accountStatus': 'verified' } }, function() {
-          if (err) {
-            return next(err)
-          }
-          return res.redirect('/signup')
-        })
+        db.none('update users set account_status=$1 where id=&2', ['verified', existingUser.id])
+          .then(function(data) {
+            req.flash('success', { msg: '登录成功' })
+            return res.redirect('/')
+          })
+          .catch(function(error) {
+            return next(error)
+          })
       })
     } else {
-      req.flash('errors', err)
+      req.flash('errors', { msg: '' })
       return res.redirect('/signup')
     }
+  })
+  .catch(function(error) {
+    return next(error)
   })
 })
 
@@ -125,10 +129,7 @@ router.get('/verifybyemail/:quicklogintoken', function(req, res, next) {
  * Quick login page.
  */
 router.get('/quicklogin/:quicklogintoken', function(req, res, next) {
-  User.findOne({ quickLoginToken: req.params.quicklogintoken }, function(err, existingUser) {
-    if (err) {
-      return next(err)
-    }
+  User.findUserByQuickLoginToken(req.params.quicklogintoken).then(function(existingUser) {
     if (existingUser) {
       req.logIn(existingUser, function(err) {
         if (err) {
@@ -137,9 +138,12 @@ router.get('/quicklogin/:quicklogintoken', function(req, res, next) {
         return res.redirect('/signup')
       })
     } else {
-      req.flash('errors', err)
+      req.flash('errors', { msg: 'DATABASE ERROR' })
       return res.redirect('/signup')
     }
+  })
+  .catch(function(error) {
+    return next(error)
   })
 })
 
@@ -217,22 +221,19 @@ router.get('/account', passportConfig.isAuthenticated, function(req, res) {
  * Update profile information.
  */
 router.post('/account/profile', passportConfig.isAuthenticated, function(req, res, next) {
-  User.findById(req.user.id, function(err, user) {
-    if (err) {
-      return next(err)
-    }
-    user.email = req.body.email || ''
-    user.profile.name = req.body.name || ''
-    user.profile.bio = req.body.bio || ''
-    user.profile.url = req.body.url || ''
-    user.profile.location = req.body.location || ''
-    user.save(function(err) {
-      if (err) {
-        return next(err)
-      }
-      req.flash('success', { msg: '个人信息已更新' })
-      return res.redirect('/account')
-    })
+  var email = req.body.email || ''
+  var name = req.body.name || ''
+  var bio = req.body.bio || ''
+  var url = req.body.url || ''
+  var location = req.body.location || ''
+
+  var updateProfilePromise = User.updateProfile(email, name, bio, url, location, req.user.id)
+  updateProfilePromise.then(function() {
+    req.flash('success', { msg: '个人信息已更新' })
+    return res.redirect('/account')
+  })
+  .catch(function(error) {
+    return next(error)
   })
 })
 
@@ -242,6 +243,8 @@ router.post('/account/profile', passportConfig.isAuthenticated, function(req, re
  * Update current password.
  */
 router.post('/account/password', passportConfig.isAuthenticated, function(req, res, next) {
+
+
   User.findById(req.user.id, function(err, user) {
     if (err) {
       return next(err)
@@ -293,11 +296,8 @@ router.post('/account/password', passportConfig.isAuthenticated, function(req, r
  * Delete user account.
  */
 router.post('/account/delete', passportConfig.isAuthenticated, function(req, res, next) {
-  User.remove({ _id: req.user.id }, function(err) {
-    if (err) {
-      return next(err)
-    }
 
+  User.deleteUser(req.user.id).then(function(data) {
     if (req.user.email) {
       var target_email = req.user.email
       var name = req.user.email
@@ -313,6 +313,9 @@ router.post('/account/delete', passportConfig.isAuthenticated, function(req, res
     req.flash('info', { msg: '账户已被删除' })
     return res.redirect('/')
   })
+  .catch(function(error) {
+    return next(error)
+  })
 })
 
 
@@ -322,32 +325,38 @@ router.post('/account/delete', passportConfig.isAuthenticated, function(req, res
  */
 router.get('/account/unlink/:provider', passportConfig.isAuthenticated, function(req, res, next) {
   const provider = req.params.provider
-  User.findById(req.user.id, (err, user) => {
-    if (err) {
-      return next(err)
-    }
-    user.provider = 'local'
-    user.tokens = user.tokens.filter(token => token.kind !== provider)
-    user.save((err) => {
-      if (err) {
-        return next(err)
-      }
-      if (provider == 'github') {
-        var provider_name = 'GitHub'
-      }
-
-      var target_email = user.email
-      var action_url = 'https://' + req.headers.host + '/account'
-      postmark.sendNotifyUnlinkPorviderEmail(target_email, provider_name, name, action_url, '', '').then(function(error) {
-        if (error) {
-          return next(error)
+  User.findUserByID(req.user.id).then(function(user) {
+    if (!_.isEmpty(user)) {
+      user.provider = 'local'
+      user.tokens = user.tokens.filter(token => token.kind !== provider)
+      user.save((err) => {
+        if (err) {
+          return next(err)
         }
-      })
+        if (provider == 'github') {
+          var provider_name = 'GitHub'
+        }
 
-      req.flash('info', { msg: `${provider_name} 已被断开连接` })
+        var target_email = user.email
+        var action_url = 'https://' + req.headers.host + '/account'
+        postmark.sendNotifyUnlinkPorviderEmail(target_email, provider_name, name, action_url, '', '').then(function(error) {
+          if (error) {
+            return next(error)
+          }
+        })
+
+        req.flash('info', { msg: `${provider_name} 已被断开连接` })
+        return res.redirect('/account')
+      })
+    } else {
+      req.flash('errors', { msg: 'DATABASE ERROR' })
       return res.redirect('/account')
-    })
+    }
   })
+  .catch(function(error) {
+    return next(error)
+  })
+
 })
 
 
@@ -378,7 +387,7 @@ router.get('/forgotpassword', function(req, res) {
  * PSOT /forgotpassword
  * send email for get password back
  */
-router.post('/forgotpassword', function(req, res) {
+router.post('/forgotpassword', function(req, res, next) {
   req.assert('email', 'Email is not valid.').isEmail()
 
   var errors = req.validationErrors()
@@ -388,9 +397,8 @@ router.post('/forgotpassword', function(req, res) {
     return res.redirect('/forgotpassword')
   }
 
-  User.findOne({ email: req.body.email }, function(err, existingUser) {
+  User.findUserByEmail(req.body.email).then(function(existingUser) {
     if (existingUser) {
-
       var target_email = req.body.email
       var name = req.body.email
       var action_url = 'https://' + req.headers.host + '/resetpasswordbyemail/' + existingUser.quickLoginToken
@@ -404,9 +412,12 @@ router.post('/forgotpassword', function(req, res) {
         }
       })
     } else {
-      req.flash('errors', err)
+      req.flash('errors', { msg: 'DATABASE ERROR' })
       return res.redirect('/forgotpassword')
     }
+  })
+  .catch(function(error) {
+    return next(error)
   })
 })
 
@@ -415,14 +426,17 @@ router.post('/forgotpassword', function(req, res) {
  * GET /resetpasswordbyemail
  * Reset password by email page.
  */
-router.get('/resetpasswordbyemail/:quicklogintoken', function(req, res) {
-  User.findOne({ quickLoginToken: req.params.quicklogintoken }, function(err, existingUser) {
+router.get('/resetpasswordbyemail/:quicklogintoken', function(req, res, next) {
+  User.findUserByQuickLoginToken(req.params.quicklogintoken).then(function(existingUser) {
     if (existingUser) {
-      res.render('user/forgotpassword.html')
+      res.render('user/forgotpassword')
     } else {
-      req.flash('errors', err)
+      req.flash('errors', { msg: 'DATABASE ERROR' })
       return res.redirect('/forgotpassword')
     }
+  })
+  .catch(function(error) {
+    return next(error)
   })
 })
 
