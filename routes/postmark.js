@@ -76,7 +76,7 @@ function sendResetPasswordEmail(target_email, name, action_url, operating_system
 function sendNotifyModifyPasswordEmail(target_email, name, action_url, operating_system, browser_name) {
   var sendNotifyModifyPasswordDefer = Q.defer()
 
-  var tplString = emailTpl.resetPassword
+  var tplString = emailTpl.notifyModifyPassword
   var renderedTpl = nunjucks.renderString(tplString, {
     product_name: process.env.product_name,
     product_url: process.env.product_url,
@@ -105,43 +105,10 @@ function sendNotifyModifyPasswordEmail(target_email, name, action_url, operating
 }
 
 
-function sendNotifyUnlinkPorviderEmail(target_email, provider, name, action_url, operating_system, browser_name) {
-  var sendNotifyUnlinkPorviderDefer = Q.defer()
-
-  var tplString = emailTpl.resetPassword
-  var renderedTpl = nunjucks.renderString(tplString, {
-    product_name: process.env.product_name,
-    product_url: process.env.product_url,
-    provider: provider,
-    name: name,
-    action_url: action_url,
-    operating_system: operating_system,
-    browser_name: browser_name,
-    support_email: process.env.support_email,
-    company_name: process.env.company_name
-  })
-
-  var subject = 'Unlink ' + provider + ' with ' + process.env.product_name
-  client.sendEmail({
-    'From': process.env.from,
-    'To': target_email,
-    'Subject': subject,
-    'HtmlBody': renderedTpl
-  }, function(error) {
-    if (error) {
-      sendNotifyUnlinkPorviderDefer.reject(error.message)
-    }
-    sendNotifyUnlinkPorviderDefer.resolve('')
-  })
-
-  return sendNotifyUnlinkPorviderDefer.promise
-}
-
-
 function sendNotifyDeleteAccountEmail(target_email, name, action_url, operating_system, browser_name) {
   var sendNotifyDeleteAccountDefer = Q.defer()
 
-  var tplString = emailTpl.resetPassword
+  var tplString = emailTpl.notifyDeleteAccount
   var renderedTpl = nunjucks.renderString(tplString, {
     product_name: process.env.product_name,
     product_url: process.env.product_url,
@@ -174,7 +141,7 @@ function sendNotifyDeleteAccountEmail(target_email, name, action_url, operating_
 function sendNotifySetupApiEmail(target_email, name, action_url, api_key, api_secret, operating_system, browser_name) {
   var sendNotifySetupApiDefer = Q.defer()
 
-  var tplString = emailTpl.resetPassword
+  var tplString = emailTpl.notifySetupAPI
   var renderedTpl = nunjucks.renderString(tplString, {
     product_name: process.env.product_name,
     product_url: process.env.product_url,
@@ -209,7 +176,7 @@ function sendNotifySetupApiEmail(target_email, name, action_url, api_key, api_se
 function sendUserInvitationEmail(target_email, invite_sender_name, invite_sender_organization_name, name, action_url) {
   var sendUserInvitationDefer = Q.defer()
 
-  var tplString = emailTpl.resetPassword
+  var tplString = emailTpl.userInvitaiton
   var renderedTpl = nunjucks.renderString(tplString, {
     product_name: process.env.product_name,
     product_url: process.env.product_url,
@@ -243,7 +210,6 @@ function sendUserInvitationEmail(target_email, invite_sender_name, invite_sender
 module.exports.sendWelcomeEmail = sendWelcomeEmail
 module.exports.sendResetPasswordEmail = sendResetPasswordEmail
 module.exports.sendNotifyModifyPasswordEmail = sendNotifyModifyPasswordEmail
-module.exports.sendNotifyUnlinkPorviderEmail = sendNotifyUnlinkPorviderEmail
 module.exports.sendNotifyDeleteAccountEmail = sendNotifyDeleteAccountEmail
 module.exports.sendNotifySetupApiEmail = sendNotifySetupApiEmail
 module.exports.sendNotifySetupApiEmail = sendUserInvitationEmail

@@ -1,7 +1,6 @@
 require('dotenv').config()
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
-const GitHubStrategy = require('passport-github').Strategy
 const _ = require('underscore')
 
 const db = require('../routes/db')
@@ -31,14 +30,14 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
   db.one('select * from users where email=$1', [email.toLowerCase()])
     .then(function(user) {
       if (!user) {
-        return done(null, false, { msg: `Email ${email} not found.` })
+        return done(null, false, { msg: `无此 ${email} 邮箱❌` })
       }
 
       User.comparePassword(password, user.password).then(function(isMatch) {
         if (isMatch) {
           return done(null, user)
         }
-        return done(null, false, { msg: 'Invalid email or password.' })
+        return done(null, false, { msg: '密码错误，请重新输入❌' })
       }).catch(function(error) {
         return done(error)
       })
@@ -48,67 +47,6 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
     })
 }))
 
-
-/**
- * Sign in with GitHub.
- */
-passport.use(new GitHubStrategy({
-  clientID: process.env.GITHUB_CLIENT_ID,
-  clientSecret: process.env.GITHUB_CLIENT_SECRET,
-  callbackURL: '/auth/github/callback',
-  passReqToCallback: true
-}, (req, accessToken, refreshToken, profile, done) => {
-  if (req.user) {
-    User.findUserByGitHub(profile.id).then(function(user) {
-      if (user) {
-        req.flash('errors', { msg: '已有账户此 GitHub 账户连接，请重新更换 GitHub 账户连接' })
-        done(null)
-      } else {
-        var github = profile.id
-        var tokens
-        tokens.push({ kind: 'github', accessToken })
-        var name = user.name || profile.displayName
-        var bio = user.bio || profile._json.bio
-        var url = user.url || profile._json.blog
-        var location = user.location || profile._json.location
-        var provider = 'github'
-
-        User.updateGitHubProfile(github, tokens, name, bio, url, location, provider, req.user.id).then(function(data) {
-          req.flash('info', { msg: 'GitHub 账户已被连接' })
-          done(null, data)
-        })
-      }
-    })
-    .catch(function(error) {
-      done(null, error)
-    })
-  } else {
-    User.findUserByGitHub(profile.id).then(function(user) {
-      if (user) {
-        req.flash('success', { msg: '登录成功' })
-        done(null, user)
-      } else {
-        var email = profile._json.email
-        var github = profile.id
-        var tokens
-        tokens.push({ kind: 'github', accessToken })
-        var name = user.name || profile.displayName
-        var bio = user.bio || profile._json.bio
-        var url = user.url || profile._json.blog
-        var location = user.location || profile._json.location
-        var provider = 'github'
-
-        User.updateGitHubEmailProfile(email, github, tokens, name, bio, url, location, provider, req.user.id).then(function(data) {
-          req.flash('info', { msg: 'GitHub 账户已被连接' })
-          done(null, data)
-        })
-      }
-    })
-    .catch(function(error) {
-      done(null, error)
-    })
-  }
-}))
 
 /**
  * Login Required middleware.
