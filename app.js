@@ -7,7 +7,6 @@ const nunjucks = require('nunjucks')
 
 const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
-const apiRouter = require('./routes/api')
 
 // dependencies
 require('dotenv').config()
@@ -115,7 +114,6 @@ app.post('/profile/upload', upload.single('avatar'), function(req, res, next) {
 
 app.use('/', indexRouter)
 app.use('/', userRouter)
-app.use('/api', apiRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

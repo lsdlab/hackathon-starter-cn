@@ -28,9 +28,9 @@ router.get('/signup', function(req, res) {
  * Create a new local account.
  */
 router.post('/signup', function(req, res, next) {
-  req.assert('email', 'Email is not valid.').isEmail()
-  req.assert('password', 'Password must be at least 8 characters long').len(8)
-  req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password)
+  req.assert('email', '请输入正确的邮箱❌').isEmail()
+  req.assert('password', '密码必须八位字符以上❌').len(8)
+  req.assert('confirmPassword', '两次密码输入不一致❌').equals(req.body.password)
 
   var errors = req.validationErrors()
   if (errors) {
