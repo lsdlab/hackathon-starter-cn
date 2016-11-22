@@ -83,11 +83,6 @@ app.use(lusca({
   xssProtection: true,
   nosniff: true
 }))
-app.use(function(req, res, next) {
-  res.locals.user = req.user
-  app.locals._ = require('underscore')
-  next()
-})
 // passport initialize
 app.use(passport.initialize())
 app.use(passport.session())
@@ -95,7 +90,6 @@ app.use(function(req, res, next) {
   res.locals.user = req.user
   next()
 })
-
 app.use(function(req, res, next) {
   // After successful login, redirect back to the intended page
   if (!req.user &&
