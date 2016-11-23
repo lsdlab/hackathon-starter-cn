@@ -2,6 +2,8 @@
 
 ![Language](https://img.shields.io/badge/language-Node.js-brightgreen.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
+## Deprecated
+
 copycat of [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter)，抄过来改改，本地邮箱登录、Google、Twitter、GitHub 登录这三个是需要的，其他的就不要了，把邮箱和短信服务对接上去，然后就留着自用。
 
 ## Changelog：
@@ -33,6 +35,10 @@ Nodemailer 太麻烦就不搞了，就用 Postmark 和 Sendgrid 好了。第三�
 
 ![4](https://breakwire.me/images/hackathon-starter-cn/hackathon-starter-cn-4.png)
 
+
+### 2016/11/24
+
+不想写 Node.JS 了……专心用 Rails 和 Python……
 
 
 ## LICENSE
