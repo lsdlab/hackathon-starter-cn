@@ -1,6 +1,7 @@
 # hackathon-starter-cn
 
-![Language](https://img.shields.io/badge/language-Node.js-brightgreen.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+[![dependencies Status](https://david-dm.org/lsdlab/hackathon-starter-cn/status.svg?style=flat-square)](https://david-dm.org/lsdlab/hackathon-starter-cn)[![devDependencies Status](https://david-dm.org/lsdlab/hackathon-starter-cn/dev-status.svg?style=flat-square)](https://david-dm.org/lsdlab/hackathon-starter-cn?type=dev)
+![Language](https://img.shields.io/badge/language-Node.js-brightgreen.svg?style=flat-square) ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
 ## Deprecated
 
