@@ -20,7 +20,7 @@
     "compression": "^1.6.2",
     "connect-pg-simple": "^3.1.2",
     "cookie-parser": "^1.4.2",
-    "dotenv": "^2.0.0",
+    "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "express-flash": "0.0.2",
     "express-session": "^1.14.2",
