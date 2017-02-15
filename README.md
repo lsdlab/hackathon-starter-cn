@@ -1,7 +1,9 @@
 # hackathon-starter-cn
 
-[![dependencies Status](https://david-dm.org/lsdlab/hackathon-starter-cn/status.svg?style=flat-square)](https://david-dm.org/lsdlab/hackathon-starter-cn)[![devDependencies Status](https://david-dm.org/lsdlab/hackathon-starter-cn/dev-status.svg?style=flat-square)](https://david-dm.org/lsdlab/hackathon-starter-cn?type=dev)
-![Language](https://img.shields.io/badge/language-Node.js-brightgreen.svg?style=flat-square) ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
+[![devDependencies Status](https://david-dm.org/lsdlab/hackathon-starter-cn/dev-status.svg?style=flat-square)](https://david-dm.org/lsdlab/hackathon-starter-cn?type=dev)
+[![dependencies Status](https://david-dm.org/lsdlab/hackathon-starter-cn/status.svg?style=flat-square)](https://david-dm.org/lsdlab/hackathon-starter-cn)
+![Language](https://img.shields.io/badge/language-Node.js-brightgreen.svg?style=flat-square)
+![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
 ## Deprecated
 
@@ -10,7 +12,7 @@ copycat of [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter)
 ## Changelog：
 ### 2016/5/31
 
-模板引擎换成  `swig`，比 `Jade` 好用多了，本地邮箱登录注册功能完成。
+模板引擎换成 `swig`，比 `Jade` 好用多了，本地邮箱登录注册功能完成。
 
 ### 2016/9/17
 
@@ -40,6 +42,10 @@ Nodemailer 太麻烦就不搞了，就用 Postmark 和 Sendgrid 好了。第三�
 ### 2016/11/24
 
 不想写 Node.JS 了……专心用 Rails 和 Python……
+
+### 2017/02/15
+
+Django 的用户模块还不太会用，Flask 要自己搭脚手架，太麻烦，Rails 的 devise 也太复杂，我觉得还是得启用这个东西，需要继续完善，把 API 做出来。
 
 
 ## LICENSE
