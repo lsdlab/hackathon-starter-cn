@@ -1,7 +1,7 @@
 # hackathon-starter-cn
 
-[![devDependencies Status](https://david-dm.org/lsdlab/hackathon-starter-cn/dev-status.svg?style=flat-square)](https://david-dm.org/lsdlab/hackathon-starter-cn?type=dev)
 [![dependencies Status](https://david-dm.org/lsdlab/hackathon-starter-cn/status.svg?style=flat-square)](https://david-dm.org/lsdlab/hackathon-starter-cn)
+[![devDependencies Status](https://david-dm.org/lsdlab/hackathon-starter-cn/dev-status.svg?style=flat-square)](https://david-dm.org/lsdlab/hackathon-starter-cn?type=dev)
 ![Language](https://img.shields.io/badge/language-Node.js-brightgreen.svg?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
@@ -41,7 +41,7 @@ Nodemailer 太麻烦就不搞了，就用 Postmark 和 Sendgrid 好了。第三�
 
 ### 2016/11/24
 
-不想写 Node.JS 了……专心用 Rails 和 Python……
+不想写 Node.js 了……专心用 Rails 和 Python……
 
 ### 2017/02/15
 
