@@ -169,64 +169,6 @@ async-each@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/async-each/-/async-each-1.0.1.tgz#19d386a1d9edc6e7c1c85d388aedbcc56d33602d"
 
-async.ensureasync@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/async.ensureasync/-/async.ensureasync-0.5.2.tgz#c3c7e4a4e9b31d96875d56b8504598446e1e305d"
-  dependencies:
-    async.util.ensureasync "0.5.2"
-
-async.queue@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/async.queue/-/async.queue-0.5.2.tgz#8d5d90812e1481066bc0904e8cc1712b17c3bd7c"
-  dependencies:
-    async.util.queue "0.5.2"
-
-async.util.arrayeach@0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/async.util.arrayeach/-/async.util.arrayeach-0.5.2.tgz#58c4e98028d55d69bfb05aeb3af44e0a555a829c"
-
-async.util.ensureasync@0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/async.util.ensureasync/-/async.util.ensureasync-0.5.2.tgz#10907f2cbd067a061f99ae6d22e08ced30db0d68"
-  dependencies:
-    async.util.restparam "0.5.2"
-    async.util.setimmediate "0.5.2"
-
-async.util.isarray@0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/async.util.isarray/-/async.util.isarray-0.5.2.tgz#e62dac8f2636f65875dcf7521c2d24d0dfb2bbdf"
-
-async.util.map@0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/async.util.map/-/async.util.map-0.5.2.tgz#e588ef86e0b3ab5f027d97af4d6835d055ca69d6"
-
-async.util.noop@0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/async.util.noop/-/async.util.noop-0.5.2.tgz#bdd62b97cb0aa3f60b586ad148468698975e58b9"
-
-async.util.onlyonce@0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/async.util.onlyonce/-/async.util.onlyonce-0.5.2.tgz#b8e6fc004adc923164d79e32f2813ee465c24ff2"
-
-async.util.queue@0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/async.util.queue/-/async.util.queue-0.5.2.tgz#57f65abe1a3cdf273d31abd28ab95425f8222ee5"
-  dependencies:
-    async.util.arrayeach "0.5.2"
-    async.util.isarray "0.5.2"
-    async.util.map "0.5.2"
-    async.util.noop "0.5.2"
-    async.util.onlyonce "0.5.2"
-    async.util.setimmediate "0.5.2"
-
-async.util.restparam@0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/async.util.restparam/-/async.util.restparam-0.5.2.tgz#03efebf3c0277b97220e525aba750f5e04fc80cd"
-
-async.util.setimmediate@0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/async.util.setimmediate/-/async.util.setimmediate-0.5.2.tgz#2812ebabf2a58027758d4bc7793d1ccfaf10255f"
-
 async@^0.9.0:
   version "0.9.2"
   resolved "https://registry.yarnpkg.com/async/-/async-0.9.2.tgz#aea74d5e61c1f899613bf64bda66d4c78f2fd17d"
@@ -357,10 +299,6 @@ boom@2.x.x:
   resolved "https://registry.yarnpkg.com/boom/-/boom-2.10.1.tgz#39c8918ceff5799f83f9492a848f625add0c766f"
   dependencies:
     hoek "2.x.x"
-
-bottleneck@^1.12.0:
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/bottleneck/-/bottleneck-1.15.0.tgz#a636f59bc2783d87d5ac7f30ff30a22e440ffbc1"
 
 brace-expansion@^1.0.0:
   version "1.1.6"
@@ -692,7 +630,7 @@ datauri@~0.2.0:
     mimer "*"
     templayed "*"
 
-debug@2.2.0, debug@^2.2.0, debug@~2.2.0:
+debug@2.2.0, debug@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
   dependencies:
@@ -941,6 +879,10 @@ etag@~1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.7.0.tgz#03d30b5f67dd6e632d2945d30d6652731a34d5d8"
 
+etag@~1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.0.tgz#6f631aef336d6c46362b51764044ce216be3c051"
+
 event-emitter@~0.3.4:
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/event-emitter/-/event-emitter-0.3.4.tgz#8d63ddfb4cfe1fae3b32ca265c4c720222080bb5"
@@ -971,6 +913,10 @@ express-flash@0.0.2:
   resolved "https://registry.yarnpkg.com/express-flash/-/express-flash-0.0.2.tgz#23d1a8bcf3f90d707928e489f96869ecad0acda2"
   dependencies:
     connect-flash "0.1.x"
+
+express-limiter@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/express-limiter/-/express-limiter-1.6.0.tgz#142753588f785b731551603d214415bc79da697a"
 
 express-session@^1.15.1:
   version "1.15.1"
@@ -1098,6 +1044,10 @@ forwarded@~0.1.0:
 fresh@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.3.0.tgz#651f838e22424e7566de161d8358caa199f83d4f"
+
+fresh@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.4.0.tgz#475626a934a8d3480b2101a1d6ecef7dafd7c553"
 
 fs.realpath@^1.0.0:
   version "1.0.0"
@@ -1501,10 +1451,6 @@ levn@~0.3.0:
 lodash.assign@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/lodash.assign/-/lodash.assign-4.2.0.tgz#0d99f3ccd7a6d261d19bdaeb9245005d285808e7"
-
-lodash.chunk@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/lodash.chunk/-/lodash.chunk-4.2.0.tgz#66e5ce1f76ed27b4303d8c6512e8d1216e8106bc"
 
 lodash@>=3.0.0, lodash@^4.0.0, lodash@^4.1.0, lodash@^4.16.0, lodash@^4.16.2, lodash@^4.17.4:
   version "4.17.4"
@@ -1936,14 +1882,14 @@ pg-pool@1.*:
     generic-pool "2.4.2"
     object-assign "4.1.0"
 
-pg-promise@5.5.6:
-  version "5.5.6"
-  resolved "https://registry.yarnpkg.com/pg-promise/-/pg-promise-5.5.6.tgz#d41003aad6ba31fc3f384760e0edd8a7f942181f"
+pg-promise@^5.5.6:
+  version "5.5.8"
+  resolved "https://registry.yarnpkg.com/pg-promise/-/pg-promise-5.5.8.tgz#fad16ffcbdba955e64d4d5f1331f70137e61faa8"
   dependencies:
     manakin "0.4"
     pg "5.1"
     pg-minify "0.4"
-    spex "1.1"
+    spex "1.2"
 
 pg-types@1.*:
   version "1.11.0"
@@ -2288,27 +2234,12 @@ send@0.14.2:
     range-parser "~1.2.0"
     statuses "~1.3.1"
 
-sendgrid-rest@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/sendgrid-rest/-/sendgrid-rest-2.3.0.tgz#662ef95a93c73c3e0a4e7a61e3880a10c78dd24a"
-
-sendgrid@^4.7.1:
-  version "4.7.1"
-  resolved "https://registry.yarnpkg.com/sendgrid/-/sendgrid-4.7.1.tgz#38a6f1798dcdbb46361767ae4f5271104dcd232f"
+serve-favicon@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/serve-favicon/-/serve-favicon-2.4.0.tgz#064dcdfdb0f250ae3b148eb18c8bbf3d185e3dd0"
   dependencies:
-    async.ensureasync "^0.5.2"
-    async.queue "^0.5.2"
-    bottleneck "^1.12.0"
-    debug "^2.2.0"
-    lodash.chunk "^4.2.0"
-    sendgrid-rest "^2.3.0"
-
-serve-favicon@^2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/serve-favicon/-/serve-favicon-2.3.2.tgz#dd419e268de012ab72b319d337f2105013f9381f"
-  dependencies:
-    etag "~1.7.0"
-    fresh "0.3.0"
+    etag "~1.8.0"
+    fresh "0.4.0"
     ms "0.7.2"
     parseurl "~1.3.1"
 
@@ -2419,9 +2350,9 @@ sparkline@^0.1.1:
     here "0.0.2"
     nopt "~2.1.2"
 
-spex@1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/spex/-/spex-1.1.1.tgz#ceede36b128e7dcb26100b89e2b049a5f4477d50"
+spex@1.2:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/spex/-/spex-1.2.0.tgz#6264b3b8acbc444477f06dbb66d425c0ee1074c0"
 
 split@^1.0.0:
   version "1.0.0"
