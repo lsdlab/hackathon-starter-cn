@@ -39,14 +39,6 @@ Nodemailer 太麻烦就不搞了，就用 Postmark 和 Sendgrid 好了。第三�
 ![4](https://breakwire.me/images/hackathon-starter-cn/hackathon-starter-cn-4.png)
 
 
-### 2016/11/24
-
-不想写 Node.js 了……专心用 Rails 和 Python……
-
-### 2017/02/15
-
-Django 的用户模块还不太会用，Flask 要自己搭脚手架，太麻烦，Rails 的 devise 也太复杂，我觉得还是得启用这个东西，需要继续完善，把 API 做出来。
-
 
 ## LICENSE
 
